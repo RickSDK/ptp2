@@ -1,1 +1,48 @@
-<p>form-input works!</p>
+<div class="inputFieldBox" style="text-align: left;">
+    <div style="font-size: 12px;">{{inputFieldObj.name}}<span *ngIf="inputFieldObj.requiredFlg"
+            style="color: red;">*</span>
+        <i class="fa fa-h-square"
+            *ngIf="inputFieldObj.componentOptions && inputFieldObj.componentOptions.hideExpression"
+            style="font-size: 24px; float: right; color: gray;" title="Includes Hide Expression"></i>
+        <i class="fa fa-info-circle" *ngIf="inputFieldObj.hint" style="font-size: 24px; float: right; cursor: pointer;"
+            (click)="showHintFlg = !showHintFlg"></i>
+    </div>
+    <input *ngIf="inputFieldObj.type == 'text' || inputFieldObj.type == 'number' || inputFieldObj.type == 'date' || inputFieldObj.type == 'email'" id="{{inputFieldObj.id}}" [disabled]="disabledFlg"
+        [attr.type]="inputFieldObj.type" [value]="inputFieldObj.value" (input)="checkStringLength($event.target)"
+        [ngStyle]="ngStyleField()" [attr.maxlength]="inputFieldObj.max" [attr.placeholder]="inputFieldObj.placeholder"
+        >
+
+    <textarea *ngIf="inputFieldObj.type == 'textarea'" id="{{inputFieldObj.id}}" [disabled]="disabledFlg"
+        [attr.type]="inputFieldObj.type" [attr.value]="inputFieldObj.value" (keyup)="checkStringLength($event.target)"
+        [ngStyle]="ngStyleField()" [attr.maxlength]="inputFieldObj.max" [attr.placeholder]="inputFieldObj.placeholder"
+        (blur)="validateField($event.target)">{{inputFieldObj.value}}</textarea>
+
+    <div *ngIf="inputFieldObj.type == 'dropdown'" style="text-align: center;">
+        <select [disabled]="disabledFlg" class="form-control" (change)="selectOption($event.target.value)" [ngStyle]="ngStyleButton(1)">
+            <option *ngIf="!inputFieldObj.value">-select-</option>
+            <option *ngFor="let option of inputFieldObj.options" [selected]="option == inputFieldObj.value">
+                {{option}}
+            </option>
+        </select>
+    </div>
+
+    <div *ngIf="inputFieldObj.type == 'boolean'" style="text-align: center;">
+        <label class="switch" (click)="toggleSwitch()">
+            <input type="checkbox" id="{{inputFieldObj.id}}" [disabled]="disabledFlg" [checked]="inputFieldObj.value">
+            <span class="slider round"></span>
+        </label>
+    </div>
+
+    <div *ngIf="inputFieldObj.max > 0" style="font-size: 10px; float: right;"><span
+            *ngIf="inputFieldObj.value">{{inputFieldObj.value.length}}/</span>{{inputFieldObj.max}}</div>
+    <div *ngIf="showHintFlg">{{inputFieldObj.hint}}</div>
+    <div *ngIf="!showHintFlg && !inputFieldObj.warningFlg && inputFieldObj.max > 0">&nbsp;</div>
+    <div *ngIf="inputFieldObj.warningFlg" style="font-size: 12px; color: red;">Field is Required!</div>
+    <div *ngIf="inputFieldObj.errorMessage && !inputFieldObj.warningFlg" style="background-color: yellow; color: red;">
+        {{inputFieldObj.errorMessage}}
+    </div>
+</div>
+
+<div *ngIf="inputFieldObj.type =='note'" class="inputFieldBox" style="text-align: left; padding:10px;">
+    <label [innerHtml]="inputFieldObj.answer"></label>
+</div>

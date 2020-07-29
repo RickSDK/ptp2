@@ -1,0 +1,10 @@
+<div style="text-align: center; padding: 10px; background-color: #ccc;">
+    <div class="btn-group" style="width: 100%; max-width: 400px;">
+        <button *ngFor="let name of gameTypes; let i = index" (click)="changeType(i)" type="button"
+            class="btn-default roundButton segmentButton" [ngStyle]="ngStyleSegment(buttonIdx,i)">
+            <i *ngIf="name=='Cash'" class="fa fa-money"></i>
+            <i *ngIf="name=='Tournament'" class="fa fa-trophy"></i>
+            {{name}}
+        </button>
+    </div>
+</div>

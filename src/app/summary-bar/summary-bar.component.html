@@ -1,0 +1,17 @@
+<div style="background-color: black;" *ngIf="summaryObj">
+    <table width="100%">
+        <tr>
+            <td width="60"><img src="assets/graphics/{{summaryObj.obj.img}}" width="60" title="{{summaryObj.obj.name}}"></td>
+            <td>
+                <div>Games: <b>{{summaryObj.numGames}}</b> ({{summaryObj.wins}}W, {{summaryObj.losses}}L) {{summaryObj.percent}}</div>
+                <div style="font-size: 12px; color: #ccc;">Return on Investment (ROI)</div>
+            </td>
+            <td>
+                <div style="font-size: 20px; font-weight: 500;">
+                    <app-local-currency [amount]="summaryObj.profit" [lightFlg]="true"></app-local-currency>
+                </div>
+                <div>{{summaryObj.obj.roi}}%</div>
+            </td>
+        </tr>
+    </table>
+</div>

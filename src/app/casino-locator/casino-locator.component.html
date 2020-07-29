@@ -1,0 +1,36 @@
+
+<app-page-shell [title]="'Casino Locator'">
+    <div style="text-align: center; padding: 10px; background-color: #ccc;">
+        <div class="btn-group" style="width: 100%; max-width: 400px;">
+            <button *ngFor="let name of segments; let i = index" (click)="segmentChanged(i)" type="button"
+                class="btn-default roundButton segmentButton" [ngStyle]="ngStyleSegment(buttonIdx,i)">
+                {{name}}
+            </button>
+        </div>
+    </div>
+
+
+    <div *ngFor="let option of displayCasinos" class="ptpCell" (click)="casinoPopup.show(option)"
+    (mouseover)="option.hover=true" (mouseout)="option.hover=false"
+    [style.background-color]="option.hover?'white':lightColor">
+    <table width="100%">
+        <tr>
+            <td width="50">
+                <img src="assets/graphics/casino.jpg" width="50">
+            </td>
+            <td style="text-align: left; padding-left: 10px;">
+                <div style="color: black; font-size: 18px; font-weight: 700;">{{option.name}} </div>
+                <div [style.color]="darkColor">{{option.botLeft}} </div>
+            </td>
+            <td width="80" style="text-align: left; color: black; font-size: 14px;">
+                {{option.botRight}} 
+            </td>
+        </tr>
+    </table>
+</div>
+<app-casino-popup #casinoPopup></app-casino-popup>
+</app-page-shell>
+
+
+<app-info-popup #infoModal></app-info-popup>
+<app-spinner #spinnerPopup></app-spinner>

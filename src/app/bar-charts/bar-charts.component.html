@@ -1,0 +1,11 @@
+<app-page-shell [title]="'Bar Charts'" icon="bar-chart" rButton="home">
+
+    <canvas (click)="drawGraph(true)" id="yearCanvas"></canvas>
+    <app-game-type-bar [selectedGameType]="selectedGameType" (messageEvent)="gameTypeChanged($event)"></app-game-type-bar>
+    <app-year-bar [selectedYear]="selectedYear" (messageEvent)="yearChanged($event)"></app-year-bar>
+
+    <canvas (click)="drawGraph(true)" id="monthCanvas"></canvas>
+    <canvas (click)="drawGraph(true)" id="dayCanvas"></canvas>
+    <canvas (click)="drawGraph(true)" id="timeCanvas"></canvas>
+
+</app-page-shell>

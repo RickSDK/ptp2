@@ -1,0 +1,18 @@
+<app-page-shell (messageEvent)="rightButtonPressed ()" [title]="'Filters'" icon="filter" rButton="plus">
+
+    <table class="drTable">
+        <tr *ngFor="let filter of filterList; let i = index" (mouseover)="filter.hover=true" (click)="filterPopup.show(filter)"
+            (mouseout)="filter.hover=false" [style.background-color]="filter.hover?lightColor:(i%2==0)?'#ddd':'white'"
+            style="cursor: pointer;">
+
+            <td style="font-size: 20px; padding-left: 10px; padding-right: 10px; white-space: nowrap; overflow: hidden; text-align: left; height: 50px;">
+                <i *ngIf="!filter.displayFlg" class="fa fa-square-o"></i>
+                <i *ngIf="filter.displayFlg" class="fa fa-check-square-o"></i> 
+                {{filter.name}}
+            </td>
+        </tr>
+    </table>
+
+</app-page-shell>
+
+<app-filter-popup #filterPopup (messageEvent)="refreshFilters ($event)"></app-filter-popup>

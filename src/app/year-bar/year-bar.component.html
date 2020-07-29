@@ -1,0 +1,16 @@
+<div style="padding: 3px;">
+    <table width="100%">
+        <tr>
+            <td align="left">
+                <app-button [disabled]="prevYear=='-'" (click)="changeYear(-1)" [name]="prevYear" [class]="'width90'"></app-button>                    
+            </td>
+            <td style="font-size: 32px; font-weight: 700;">
+                 {{selectedYear}}
+            </td>
+            <td align="right">
+                <app-button [disabled]="nextYear=='-'" (click)="changeYear(1)" [name]="nextYear" [class]="'width90'"></app-button>                    
+               
+            </td>
+        </tr>
+    </table>
+</div>

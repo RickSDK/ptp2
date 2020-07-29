@@ -17,6 +17,20 @@ import { FormInputComponent } from './form-input/form-input.component';
 import { FormWrapperComponent } from './form-wrapper/form-wrapper.component';
 import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
 import { LoginPopupComponent } from './popups/login-popup/login-popup.component';
+import { AnalysisComponent } from './analysis/analysis.component';
+import { BarChartsComponent } from './bar-charts/bar-charts.component';
+import { CasinoLocatorComponent } from './casino-locator/casino-locator.component';
+import { CasinoPopupComponent } from './casino-popup/casino-popup.component';
+import { ChooseCardPopupComponent } from './choose-card-popup/choose-card-popup.component';
+import { ColorThemesComponent } from './color-themes/color-themes.component';
+import { DateInputComponent } from './date-input/date-input.component';
+import { FilterPopupComponent } from './filter-popup/filter-popup.component';
+import { FiltersComponent } from './filters/filters.component';
+import { ForumComponent } from './forum/forum.component';
+import { SummaryBarComponent } from './summary-bar/summary-bar.component';
+import { YearBarComponent } from './year-bar/year-bar.component';
+import { ProgressBarComponent } from './progress-bar/progress-bar.component';
+import { GameTypeBarComponent } from './game-type-bar/game-type-bar.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +48,21 @@ import { LoginPopupComponent } from './popups/login-popup/login-popup.component'
     FormInputComponent,
     FormWrapperComponent,
     ConfirmationPopupComponent,
-    LoginPopupComponent
+    LoginPopupComponent,
+    AnalysisComponent,
+    BarChartsComponent,
+    CasinoLocatorComponent,
+    CasinoPopupComponent,
+    ChooseCardPopupComponent,
+    ColorThemesComponent,
+    DateInputComponent,
+    FilterPopupComponent,
+    FiltersComponent,
+    ForumComponent,
+    SummaryBarComponent,
+    YearBarComponent,
+    ProgressBarComponent,
+    GameTypeBarComponent
   ],
   imports: [
     BrowserModule,
