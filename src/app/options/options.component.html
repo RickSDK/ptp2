@@ -1,0 +1,38 @@
+<app-page-shell [title]="title">
+    <div style="padding: 5px; height: 55px;">
+        <span style="float: left; padding-left: 10px;">
+            <div style="text-align: left;">{{userObj.firstName}}</div>
+            <div style="text-align: left;">{{userObj.email}}</div>
+        </span>
+        <app-button *ngIf="!userObj.firstName" (click)="loginPopup.show()" [name]="'Login'" [class]="'gameButton'" [icon]="'sign-in'" [butStyle]="1">
+        </app-button>
+        <app-button style="float: right;" *ngIf="userObj.firstName" (click)="logoutUser()" [name]="'Logout'" [class]="'gameButton'" [icon]="'sign-out'" [butStyle]="1">
+        </app-button>
+    </div>
+    <div style="background-color: #ccc; color: black;">
+        Exporting saves your data to a server so you can import it to a new device. Note data is NOT automatically
+        backed up as you enter new games.
+        You must manually export it here.
+    </div>
+    <div style="background-color: black; color: white;">
+        Database Management
+    </div>
+    <div *ngFor="let option of options" class="optionClass" (click)="buttonClicked(option)"
+        (mouseover)="option.hover=true" (mouseout)="option.hover=false"
+        [style.background-color]="option.hover?'white':lightColor">
+        <i class="fa {{option.icon}}"></i> {{option.name}} 
+        <span *ngIf="option.name=='Export'" style="display: block; height: 100%; float: right; text-align: right; font-size: 12px; padding-right: 10px;">
+            <div>Current Games: <b>{{allGames.length}}</b></div>
+            <div>Last Export: <b>{{lastExportCount}}</b></div>
+        </span> 
+        <span *ngIf="option.name=='Import'" style="display: block; height: 100%; float: right; text-align: right; font-size: 12px; padding-right: 10px;">
+            <div>Games on Server: <b>{{userObj.gamesOnServer}}</b></div>
+           <div>Last Import: <b>{{lastImportText}}</b></div>
+        </span> 
+    </div>
+</app-page-shell>
+
+<app-confirmation-popup #confirmationPopup (messageEvent)="confirmButtonClicked($event)"></app-confirmation-popup>
+<app-info-popup #infoModal></app-info-popup>
+<app-login-popup #loginPopup (messageEvent)="loginComplete($event)"></app-login-popup>
+<app-spinner #spinnerPopup></app-spinner>

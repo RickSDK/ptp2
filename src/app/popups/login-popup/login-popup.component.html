@@ -1,0 +1,74 @@
+<div class="modal fade" id="loginPopup" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document" style="max-width: 320px;">
+        <div class="modal-content" [ngStyle]="ngStyleBackground()">
+            <div class="modal-header">
+                <b><i class="fa fa-sign-in"></i> Login</b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align: center; font-size: 20px;">
+
+                <div *ngIf="apiExecutedFlg">
+                    <div *ngIf="loadingFlg"><i class="fa fa-spinner fa-spin"></i> Loading...</div>
+                    <div *ngIf="apiMessage">{{apiMessage}}</div>
+                    <app-button (click)="okButtonPressed()" [name]="'OK'" class="large"
+                        [butStyle]="1">
+                    </app-button>
+                </div>
+                <div *ngIf="!apiExecutedFlg && !createAccountFlg && !showCreateAccountFlg">
+                    <input type="text" id="emailField" placeholder="Email" (click)="$event.target.value=''">
+                    <input type="password" id="passwordField" placeholder="Password" (click)="$event.target.value=''">
+                    <app-button (click)="loginPressed()" [name]="'Login'" class="large" [icon]="'sign-in'"
+                        [butStyle]="1">
+                    </app-button>
+                    <hr>
+                    <app-button (click)="createAccountPressed()" name="Create Account" icon="user" [butStyle]="3">
+                    </app-button>
+                </div>
+
+                <div *ngIf="showCreateAccountFlg">
+                    <input type="text" id="emailField3" placeholder="Email" (click)="$event.target.value=''">
+                    <input type="text" id="firstName" placeholder="First Name" (click)="$event.target.value=''">
+                    <input type="password" id="passwordField2" placeholder="Password" (click)="$event.target.value=''">
+                    <input type="password" id="passwordField3" placeholder="re-type Password" (click)="$event.target.value=''">
+                    <div *ngIf="errorMessage" style="color: red;">{{errorMessage}}</div>
+                    <app-button (click)="createPressed()" [name]="'Create'" class="large" [icon]="'sign-in'"
+                        [butStyle]="1">
+                    </app-button>
+                </div>
+
+                <div *ngIf="createAccountFlg" style="font-size: 16px;">
+                    <div *ngIf="!emailSentFlg">
+                        <div>Thank you for using PTP!</div>
+                        <div>Poker Track for full unlocked version costs $12.99</div>
+                        <hr>
+                        <div>Features Include:</div>
+                        <li>Unlimited Game Entry</li>
+                        <li>Back up all data to a server</li>
+                        <li>Transfer data to new devices</li>
+                        <li>Access to Forum</li>
+                        <li>Access to Friend Tracker</li>
+                        <hr>
+                        <div>3 Ways to pay</div>
+                        <ol>
+                            <li>Download app from Android or IOS Store</li>
+                            <li>Email: rick@pokertrackpro.com</li>
+                            <li>Submit your email address</li>
+                        </ol>
+                        <input type="text" id="emailField2" placeholder="Email" (click)="$event.target.value=''">
+                        <app-button (click)="submitEmailPressed()" name="Send Email" icon="envelope" [butStyle]="3">
+                        </app-button>    
+                    </div>
+                        <div *ngIf="emailSentFlg">
+                        Request has been sent! Please allow 24 hous for response. Email rick@pokertrackpro.com for questions, or call 425-501-0350
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<div class="modal fade" id="confirmationPopup" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" [ngStyle]="ngStyleBackground()">
+            <div class="modal-header">
+                <b><i class="fa fa-exclamation-triangle"></i> Confirmation</b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+
+                <div>{{message}}</div>
+                <hr>
+                <button (click)="cancelButtonPressed()" type="button"
+                    class="btn btn-warning roundButton large"> Cancel
+                </button>
+
+                <button (click)="confirmButtonPressed()" type="button"
+                    class="btn btn-success roundButton large"> Yes
+                </button>
+
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
