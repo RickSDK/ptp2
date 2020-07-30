@@ -1,8 +1,8 @@
-<app-page-shell [title]="title">
+<app-page-shell [title]="title" rButton="home">
     <div style="padding: 5px; height: 55px;">
         <span style="float: left; padding-left: 10px;">
-            <div style="text-align: left;">{{userObj.firstName}}</div>
-            <div style="text-align: left;">{{userObj.email}}</div>
+            <div style="text-align: left;"><b>{{userObj.firstName}}</b></div>
+            <div style="text-align: left; font-size: 12px;">{{userObj.email}}</div>
         </span>
         <app-button *ngIf="!userObj.firstName" (click)="loginPopup.show()" [name]="'Login'" [class]="'gameButton'" [icon]="'sign-in'" [butStyle]="1">
         </app-button>

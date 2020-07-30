@@ -158,7 +158,7 @@ function getPostDataFromObj(obj) {
 }
 
 function executeApiOfFile(file, params) {
-  var url = 'http://www.appdigity.com/poker/' + file;
+  var url = 'https://www.appdigity.com/poker/' + file;
   var postData = getPostDataFromObj(params);
   console.log(url);
   console.log(postData);

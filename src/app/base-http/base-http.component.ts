@@ -30,7 +30,7 @@ export class BaseHttpComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
   }
   getHostname() {
-    return 'http://www.appdigity.com/poker/';
+    return 'https://www.appdigity.com/poker/';
   }
   showAlertPopup(message: string) {
     this.infoPopupComponent.show(message);
