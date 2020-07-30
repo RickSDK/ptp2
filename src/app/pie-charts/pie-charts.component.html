@@ -1,0 +1,28 @@
+<app-page-shell [title]="'Pie Charts'" icon="pie-chart" rButton="home">
+
+    <app-game-type-bar [selectedGameType]="selectedGameType" (messageEvent)="gameTypeChanged($event)">
+    </app-game-type-bar>
+    <app-year-bar [selectedYear]="selectedYear" (messageEvent)="yearChanged($event)"></app-year-bar>
+    <app-summary-bar [summaryObj]="summaryObj"></app-summary-bar>
+
+    <div style="text-align: center; padding: 10px; background-color: #ccc;">
+        <div class="btn-group" style="width: 100%; max-width: 400px;">
+            <button [disabled]="button.name == 'Stakes' && stakesCount==0" *ngFor="let button of buttons; let i = index" (click)="changeButton(i)" type="button"
+                class="btn-default roundButton segmentButton" [ngStyle]="ngStyleSegment(buttonIdx,i, (button.name == 'Stakes' && stakesCount==0))">
+                <div><i class="fa fa-{{button.icon}}"></i></div>
+                {{button.name}}
+            </button>
+        </div>
+    </div>
+    <canvas id="myCanvas"></canvas>
+
+    <table class="drTable">
+        <tr *ngFor="let item of items">
+            <td width="50%" style="text-align: right;">{{item.name}}:&nbsp;</td>
+            <td style="text-align: left; font-weight: 500;">&nbsp;
+                {{item.value}}
+            </td>
+        </tr>
+    </table>
+
+</app-page-shell>

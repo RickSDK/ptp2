@@ -1,0 +1,76 @@
+<div class="modal fade" id="playerTrackerPopup" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" [ngStyle]="ngStyleBackground()">
+            <div class="modal-header">
+                <b><i class="fa fa-user"></i> Player Tracker</b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align: center;" *ngIf="player">
+
+                <app-form-input (messageEvent)="changesMade($event)" [inputFieldObj]="nameObj"></app-form-input>
+                
+                <table align="center" *ngIf="player">
+                    <tr>
+                        <td></td>
+                        <td style="font-size: 10px; text-align: left;">Loose <span style="float: right;">Tight</span></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><app-button [disabled]="player.looseNum <= 0" (click)="changeLooseTight(-10)" [icon]="'minus'" [butStyle]="1"></app-button></td>
+                        <td><img id="looseImg" src="assets/graphics/red_greenH.jpg" ></td>
+                        <td><app-button [disabled]="player.looseNum >= 100" (click)="changeLooseTight(10)" [icon]="'plus'" [butStyle]="1"></app-button></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td style="font-size: 10px; text-align: left;">Passive <span style="float: right;">Aggressive</span></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><app-button [disabled]="player.aggresiveNum <= 0" (click)="changePassiveAgg(-10)" [icon]="'minus'" [butStyle]="1"></app-button></td>
+                        <td><img id="passiveImg" src="assets/graphics/red_greenH.jpg" ></td>
+                        <td><app-button [disabled]="player.aggresiveNum >= 100" (click)="changePassiveAgg(10)" [icon]="'plus'" [butStyle]="1"></app-button></td>
+                    </tr>
+                </table>
+
+                <img src="assets/graphics/playerType{{player.playerType}}.png" height="200">
+           
+                <div class="inputFieldBox">
+                    <div style="font-size: 12px; text-align: left;">Play Style: <b>{{player.label}}</b></div>
+                    <div class="btn-group" style="width: 100%; max-width: 400px;">
+                        <button *ngFor="let name of segments; let i = index" (click)="segmentChanged(i)" type="button"
+                            class="btn-default roundButton segmentButton" [ngStyle]="ngStyleSegment(buttonIdx,i)">
+                            {{name}}
+                        </button>
+                    </div>
+                </div>
+
+                <app-form-input (messageEvent)="changesMade($event)" [inputFieldObj]="commentsObj"></app-form-input>
+                <app-form-input (messageEvent)="changesMade($event)" [inputFieldObj]="casinoObj"></app-form-input>
+
+                <div>
+                    <app-button [disabled]="!changesMadeFlg" (click)="savePlayer()" [name]="'Save'" [class]="'medium'" [icon]="'floppy-o'" [butStyle]="1">
+                    </app-button>    
+                </div>
+ 
+                <app-button *ngIf="!newPlayerFlg && !deleteConfirm" (click)="deleteConfirm=true" [name]="'Delete'" [icon]="'trash'" [butStyle]="4">
+                </app-button>
+                <div *ngIf="deleteConfirm">
+                    <div>Confirm Delete this player?</div>
+                    <app-button (click)="deleteConfirm=false" [name]="'Cancel'" [icon]="'times'" [butStyle]="1">
+                    </app-button>    
+                    <app-button (click)="deletePlayer()" [name]="'Yes!'" [icon]="'trash'" [butStyle]="4">
+                    </app-button>        
+                </div>
+
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+    <div id="looseBar" style="background-color: black; width: 20px; height: 50px; position: absolute; z-index: 2000;"></div>
+<div id="passiveBar" style="background-color: black; width: 20px; height: 50px; position: absolute; z-index: 2000;"></div>
+</div>
+
+

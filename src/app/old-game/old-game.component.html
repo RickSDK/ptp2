@@ -1,0 +1,180 @@
+<app-page-shell [title]="title" [rButton]="'home'">
+
+    <div [ngStyle]="ngStyleGrayColor()" class="box">
+        <div style="text-align: center; padding: 5px;">
+            <div class="btn-group">
+                <button [disabled]="formDisabledFlg" (click)="changeGameType(0)" type="button"
+                    class="btn-default roundButton segmentButton"
+                    [ngStyle]="ngStyleSegment(buttonIdx,0, formDisabledFlg)">
+                    <i class="fa fa-money"></i>
+                    <div style="font-size: 10px;">Cash Game</div>
+                </button>
+                <button [disabled]="formDisabledFlg" (click)="changeGameType(1)" type="button"
+                    class="btn-default roundButton segmentButton"
+                    [ngStyle]="ngStyleSegment(buttonIdx,1, formDisabledFlg)">
+                    <i class="fa fa-trophy"></i>
+                    <div style="font-size: 10px;">Tournament</div>
+                </button>
+            </div>
+        </div>
+        <div *ngIf="buttonIdx==0"><b>Cash Game</b></div>
+        <div *ngIf="buttonIdx==1"><b>Tournament</b></div>
+        <div style="text-align: center;">
+            <div class="btn-group" style="width: 100%; max-width: 400px;">
+                <button [disabled]="formDisabledFlg" *ngFor="let name of gameTypes; let i = index"
+                    (click)="segmentButtonClicked(i, 0, name)" type="button"
+                    class="btn-default roundButton segmentButton"
+                    [ngStyle]="ngStyleSegment(button2Idx,i, formDisabledFlg)">
+                    <span *ngIf="name != 'edit'">{{name}}</span>
+                    <span *ngIf="name == 'edit'"><i class="fa fa-plus"></i></span>
+                </button>
+            </div>
+        </div>
+        <div style="text-align: center;" *ngIf="buttonIdx==1">
+            <div class="btn-group" style="width: 100%; max-width: 400px;">
+                <button [disabled]="formDisabledFlg" *ngFor="let name of tournamentTypes; let i = index"
+                    (click)="segmentButtonClicked(i, 1, name)" type="button"
+                    class="btn-default roundButton segmentButton"
+                    [ngStyle]="ngStyleSegment(button3Idx,i, formDisabledFlg)">
+                    <span *ngIf="name != 'edit'">{{name}}</span>
+                    <span *ngIf="name == 'edit'"><i class="fa fa-plus"></i></span>
+                </button>
+            </div>
+        </div>
+        <div style="text-align: center;" *ngIf="buttonIdx==0">
+            <div class="btn-group" style="width: 100%; max-width: 400px;">
+                <button [disabled]="formDisabledFlg" *ngFor="let name of stakes; let i = index"
+                    (click)="segmentButtonClicked(i, 2, name)" type="button"
+                    class="btn-default roundButton segmentButton"
+                    [ngStyle]="ngStyleSegment(button4Idx,i, formDisabledFlg)">
+                    <span *ngIf="name != 'edit'">{{name}}</span>
+                    <span *ngIf="name == 'edit'"><i class="fa fa-plus"></i></span>
+                </button>
+            </div>
+        </div>
+        <div style="text-align: center;">
+            <div class="btn-group" style="width: 100%; max-width: 400px;">
+                <button [disabled]="formDisabledFlg" *ngFor="let name of limits; let i = index"
+                    (click)="segmentButtonClicked(i, 3, name)" type="button"
+                    class="btn-default roundButton segmentButton"
+                    [ngStyle]="ngStyleSegment(button5Idx,i, formDisabledFlg)">
+                    <span *ngIf="name != 'edit'">{{name}}</span>
+                    <span *ngIf="name == 'edit'"><i class="fa fa-plus"></i></span>
+                </button>
+            </div>
+        </div>
+        <div class="smallText"><i class="fa fa-university"></i> Bankroll:</div>
+        <app-button [name]="bankroll" [disabled]="formDisabledFlg"
+            (click)="refDataButtonPressed(4, 'Bankrolls', bankroll)" [class]="'gameButton'"></app-button>
+
+        <div *ngIf="liveFlg" style="padding: 20px;">
+            <div class="smallText"><i class="fa fa-globe"></i> Location:</div>
+            <app-button [name]="casino" [disabled]="formDisabledFlg"
+                (click)="refDataButtonPressed(5, 'Locations', casino)" [class]="'gameButton'"></app-button>
+            <div class="smallText">Buy-in:</div>
+            <app-button [name]="buyinObj.currency" [disabled]="formDisabledFlg"
+                (click)="buttonNumberClicked('Buy-in', 1, buyinObj.amount, true)" [class]="'gameButton'"></app-button>
+
+            <hr>
+            <button (click)="startLiveGame()" type="button" class="btn-success roundButton segmentButton largeBtn"
+                [ngStyle]="ngStyleButton(2, formDisabledFlg)">
+                <div><i class="fa fa-play"></i>&nbsp;Start!</div>
+            </button>
+
+        </div>
+        <div *ngIf="!liveFlg">
+            <table align="center">
+                <tr>
+                    <td>
+                        <div class="smallText"><i class="fa fa-globe"></i> Location:</div>
+                        <app-button [name]="casino" [disabled]="formDisabledFlg"
+                            (click)="refDataButtonPressed(5, 'Locations', casino)" [class]="'gameButton'"></app-button>
+                        <div class="smallText"><i class="fa fa-arrow-down"></i> Buy-in:</div>
+                        <app-button [name]="buyinObj.currency" [disabled]="formDisabledFlg"
+                            (click)="buttonNumberClicked('Buy-in', 1, buyinObj.amount, true)" [class]="'gameButton'">
+                        </app-button>
+                        <div class="smallText"><i class="fa fa-arrow-up"></i> Cash-out:</div>
+                        <app-button [name]="cashoutObj.currency" [disabled]="formDisabledFlg"
+                            (click)="buttonNumberClicked('Cash-out', 2, cashoutObj.amount, true)"
+                            [class]="'gameButton'"></app-button>
+                        <div class="smallText"><i class="fa fa-clock-o"></i> Break Minutes:</div>
+                        <app-button [name]="breakMinutes" [disabled]="formDisabledFlg"
+                            (click)="buttonNumberClicked('Break Minutes', 7, breakMinutes, true)"
+                            [class]="'gameButton'"></app-button>
+                    </td>
+                    <td>
+                        <div class="smallText"><i class="fa fa-money"></i> Tips:</div>
+                        <app-button [name]="tipsObj.currency" [disabled]="formDisabledFlg"
+                            (click)="buttonNumberClicked('Tips', 3, tipsObj.amount, true)" [class]="'gameButton'">
+                        </app-button>
+                        <div *ngIf="buttonIdx==0" class="smallText"><i class="fa fa-cutlery"></i> Food:</div>
+                        <app-button *ngIf="buttonIdx==0" [name]="foodObj.currency" [disabled]="formDisabledFlg"
+                            (click)="buttonNumberClicked('Food', 4, foodObj.amount, true)" [class]="'gameButton'">
+                        </app-button>
+                        <div class="smallText"><i class="fa fa-refresh"></i> Rebuys:</div>
+                        <app-button [name]="rebuys" [disabled]="formDisabledFlg"
+                            (click)="buttonNumberClicked('Rebuys', 5, rebuys)" [class]="'gameButton'"></app-button>
+                        <div class="smallText"><i class="fa fa-money"></i> Rebuy Amount:</div>
+                        <app-button [name]="rebuyAmountObj.currency"
+                            (click)="buttonNumberClicked('Rebuy Amount', 6, rebuyAmountObj.amount)"
+                            [disabled]="formDisabledFlg" [class]="'gameButton'"></app-button>
+                    </td>
+                </tr>
+            </table>
+            <table *ngIf="buttonIdx==1" align="center">
+                <tr>
+                    <td>
+                        <div class="smallText"><i class="fa fa-trophy"></i> Tournament Spots:</div>
+                        <app-button [name]="game.tournamentSpots" [disabled]="formDisabledFlg"
+                            (click)="buttonNumberClicked('Tournament Spots', 10, game.tournamentSpots)" [class]="'gameButton'">
+                        </app-button>
+                    </td>
+                    <td>
+                        <div class="smallText"><i class="fa fa-trophy"></i> Spots Paid:</div>
+                        <app-button [name]="game.tournamentPaid" [disabled]="formDisabledFlg"
+                            (click)="buttonNumberClicked('Spots Paid', 11, game.tournamentPaid)" [class]="'gameButton'">
+                        </app-button>
+                    </td>
+                    <td>
+                        <div class="smallText"><i class="fa fa-trophy"></i> Your finish Place:</div>
+                        <app-button [name]="game.tournamentFinish" [disabled]="formDisabledFlg"
+                            (click)="buttonNumberClicked('Your finish Place', 12, game.tournamentFinish)" [class]="'gameButton'">
+                        </app-button>
+                    </td>
+                </tr>
+            </table>
+            <app-date-input [inputFieldObj]="startDateObj" (messageEvent)="timeChanged()"
+                [disabledFlg]="formDisabledFlg">
+            </app-date-input>
+            <app-date-input [inputFieldObj]="endDateObj" (messageEvent)="timeChanged()" [disabledFlg]="formDisabledFlg">
+            </app-date-input>
+            <div><i class="fa fa-file-text-o"></i> Notes: <input type="text" id="notes" value="{{game.notes}}"
+                    (input)="doInput($event.target.value)" (change)="changesMadeFlg=true" (keyup)="changesMadeFlg=true">
+            </div>
+            <div>Game Duration: <span [ngStyle]="ngStylehighlightedValue()">{{gameMinutes}}</span> Min</div>
+            <div>Profit: {{profitObj.currency}} </div>
+            <app-local-currency value="profitObj.value"></app-local-currency>
+            <div *ngIf="gameMinutes>0">Hourly: {{hourlyObj.currency}} /hr</div>
+            <hr>
+
+            <div>
+                <button *ngIf="!formDisabledFlg" [disabled]="gameMinutes <= 0" (click)="submitButtonPressed()"
+                    type="button" class="btn-success roundButton segmentButton largeBtn"
+                    [ngStyle]="ngStyleButton(2, gameMinutes <= 0 || !changesMadeFlg)">
+                    <div *ngIf="!gameId"><i class="fa fa-arrow-right"></i>&nbsp;Submit</div>
+                    <div *ngIf="gameId>0"><i class="fa fa-arrow-right"></i>&nbsp;Update</div>
+                </button>
+            </div>
+        </div>
+        <hr>
+        <app-button *ngIf="gameId>0" [name]="'Delete Game'" (click)="deleteGame()" [class]="'gameButton'"
+            [icon]="'trash'" [butStyle]="4">
+        </app-button>
+
+
+    </div>
+</app-page-shell>
+
+<app-info-popup #infoModal (messageEvent)="okButtonPressed()"></app-info-popup>
+<app-number-modal #numberModal (messageEvent)="numberSelected($event)"></app-number-modal>
+<app-ref-data-modal #refDataModal (messageEvent)="refDataSelected($event)"></app-ref-data-modal>

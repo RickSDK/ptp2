@@ -1,0 +1,204 @@
+<app-page-shell [title]="'HUD'" icon="user-secret" rButton="home">
+
+
+    <div style="background-color: #ccc; padding: 2px; color: black;">
+        <table width=100% *ngIf="villianObj && heroObj">
+            <tr>
+                <td width=33% align="center" style="background-color: #ccc; border: 1px solid gray;">
+                    <div (click)="hudPopup.show(1)" [ngStyle]="ngStyleButton(2)"
+                        style="font-size: 20px; cursor: pointer;">
+                        <i class="fa fa-info-circle"></i> VPIP</div>
+                    <div>
+                        <table width=100%>
+                            <td width=50% style="padding: 3px;">
+                                <div id="pfrVil"
+                                    style="background-color: white; text-align: center; color: #900; font-size: 20px;">
+                                    {{villianObj.vpip}}</div>
+                            </td>
+                            <td width=50% style="padding: 3px;">
+                                <div id="pfrHero"
+                                    style="background-color: white; text-align: center; color: blue; font-size: 20px;">
+                                    {{heroObj.vpip}}</div>
+                            </td>
+                        </table>
+                    </div>
+                    <div>
+                        <table width=100%>
+                            <td width=50% style="padding: 3px;">
+                                <div id="pfrVil" style="text-align: center; color: gray; font-size: 18px;">
+                                    {{villianObj.vpip2}}</div>
+                            </td>
+                            <td width=50% style="padding: 3px;">
+                                <div id="pfrHero" style="text-align: center; color: gray; font-size: 18px;">
+                                    {{heroObj.vpip2}}</div>
+                            </td>
+                        </table>
+                    </div>
+                    <div style="font-size: 17px; font-weight: 700;">Loose</div>
+                    <img id="redGreen1" src="assets/graphics/red_green.jpg" height=200>
+                    <div style="font-size: 17px; font-weight: 700;">Tight</div>
+                </td>
+                <td width=33% align="center" style="background-color: #ccc; border: 1px solid gray;">
+                    <div (click)="hudPopup.show(2)" [ngStyle]="ngStyleButton(2)"
+                        style="font-size: 20px; cursor: pointer;">
+                        <i class="fa fa-info-circle"></i> PFR</div>
+                    <div>
+                        <table width=100%>
+                            <td width=50% style="padding: 3px;">
+                                <div id="pfrVil"
+                                    style="background-color: white; text-align: center; color: #900; font-size: 20px;">
+                                    {{villianObj.pfr}}</div>
+                            </td>
+                            <td width=50% style="padding: 3px;">
+                                <div id="pfrHero"
+                                    style="background-color: white; text-align: center; color: blue; font-size: 20px;">
+                                    {{heroObj.pfr}}</div>
+                            </td>
+                        </table>
+                    </div>
+                    <div>
+                        <table width=100%>
+                            <td width=50% style="padding: 3px;">
+                                <div id="pfrVil" style="text-align: center; color: gray; font-size: 18px;">
+                                    {{villianObj.pfr2}}</div>
+                            </td>
+                            <td width=50% style="padding: 3px;">
+                                <div id="pfrHero" style="text-align: center; color: gray; font-size: 18px;">
+                                    {{heroObj.pfr2}}</div>
+                            </td>
+                        </table>
+                    </div>
+                    <div style="font-size: 17px; font-weight: 700;">Aggressive</div>
+                    <img id="redGreen2" src="assets/graphics/red_green2.jpg" height=200>
+                    <div style="font-size: 17px; font-weight: 700;">Passive</div>
+                </td>
+                <td width=33% align="center" style="background-color: #ccc; border: 1px solid gray;">
+                    <div (click)="hudPopup.show(3)" [ngStyle]="ngStyleButton(2)"
+                        style="font-size: 20px; cursor: pointer;">
+                        <i class="fa fa-info-circle"></i> AF</div>
+                    <div>
+                        <table width=100%>
+                            <td width=50% style="padding: 3px;">
+                                <div id="pfrVil"
+                                    style="background-color: white; text-align: center; color: #900; font-size: 20px;">
+                                    {{villianObj.af}}</div>
+                            </td>
+                            <td width=50% style="padding: 3px;">
+                                <div id="pfrHero"
+                                    style="background-color: white; text-align: center; color: blue; font-size: 20px;">
+                                    {{heroObj.af}}</div>
+                            </td>
+                        </table>
+                    </div>
+                    <div>
+                        <table width=100%>
+                            <td width=50% style="padding: 3px;">
+                                <div id="pfrVil" style="text-align: center; color: gray; font-size: 18px;">
+                                    {{villianObj.af2}}</div>
+                            </td>
+                            <td width=50% style="padding: 3px;">
+                                <div id="pfrHero" style="text-align: center; color: gray; font-size: 18px;">
+                                    {{heroObj.af2}}</div>
+                            </td>
+                        </table>
+                    </div>
+                    <div style="font-size: 17px; font-weight: 700;">Aggressive</div>
+                    <img id="redGreen3" src="assets/graphics/red_green2.jpg" height=200>
+                    <div style="font-size: 17px; font-weight: 700;">Passive</div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!--villianObj-->
+    <section *ngIf="villianObj" [ngStyle]="ngStyleNavBar()" class="hudClass">
+        <table width=100%>
+            <td align="left">{{villianObj.name}} Pre-flop Action</td>
+            <td align=right>
+                <font color=#fc0>{{villianObj.title}}</font>
+            </td>
+        </table>
+        <table width=100%>
+            <td width=20% align=center valign=top>
+                <div class="blackLabel2">{{villianObj.fold}}</div>
+                <app-button (click)="adjustHudObj(villianObj, 0)" [icon]="'arrow-down'"></app-button>
+                <div>Fold</div>
+            </td>
+            <td width=20% align=center valign=top>
+                <div class="blackLabel2">{{villianObj.check}}</div>
+                <app-button (click)="adjustHudObj(villianObj, 1)" [icon]="'check'"></app-button>
+                <div>Check</div>
+            </td>
+            <td width=20% align=center valign=top>
+                <div class="blackLabel2">{{villianObj.call}}</div>
+                <app-button (click)="adjustHudObj(villianObj, 2)" [icon]="'bullhorn'"></app-button>
+                <div>Call</div>
+            </td>
+            <td width=20% align=center valign=top>
+                <div class="blackLabel2">{{villianObj.raise}}</div>
+                <app-button (click)="adjustHudObj(villianObj, 3)" [icon]="'arrow-up'"></app-button>
+                <div>Raise</div>
+            </td>
+            <td width=20% align=center valign=top>
+                <img src="assets/graphics/{{villianObj.img}}" height=50 width=50><br>
+                <app-button (click)="clearStats(villianObj)" name="Clear" [butStyle]="4"></app-button>
+            </td>
+        </table>
+    </section>
+    <!--hero-->
+    <section *ngIf="heroObj" [ngStyle]="ngStyleNavBar()" class="hudClass">
+        <table width=100%>
+            <td align="left">{{heroObj.name}} Pre-flop Action</td>
+            <td align=right>
+                <font color=#fc0>{{heroObj.title}}</font>
+            </td>
+        </table>
+        <table width=100%>
+            <td width=20% align=center valign=top>
+                <div class="blackLabel2">{{heroObj.fold}}</div>
+                <app-button (click)="adjustHudObj(heroObj, 0)" [icon]="'arrow-down'"></app-button>
+                <div>Fold</div>
+            </td>
+            <td width=20% align=center valign=top>
+                <div class="blackLabel2">{{heroObj.check}}</div>
+                <app-button (click)="adjustHudObj(heroObj, 1)" [icon]="'check'"></app-button>
+                <div>Check</div>
+            </td>
+            <td width=20% align=center valign=top>
+                <div class="blackLabel2">{{heroObj.call}}</div>
+                <app-button (click)="adjustHudObj(heroObj, 2)" [icon]="'bullhorn'"></app-button>
+                <div>Call</div>
+            </td>
+            <td width=20% align=center valign=top>
+                <div class="blackLabel2">{{heroObj.raise}}</div>
+                <app-button (click)="adjustHudObj(heroObj, 3)" [icon]="'arrow-up'"></app-button>
+                <div>Raise</div>
+            </td>
+            <td width=20% align=center valign=top>
+                <img src="assets/graphics/{{heroObj.img}}" height=50 width=50><br>
+                <app-button (click)="clearStats(heroObj)" name="Clear" [butStyle]="4"></app-button>
+            </td>
+        </table>
+    </section>
+
+    <app-hud-popup #hudPopup></app-hud-popup>
+
+    <div id="bar1vil" style="background-color: black; width: 50px; height: 15px; position: absolute;"></div>
+    <div id="bar1hero" style="background-color: black; width: 50px; height: 15px; position: absolute;"></div>
+    <div id="bar2vil" style="background-color: black; width: 50px; height: 15px; position: absolute;"></div>
+    <div id="bar2hero" style="background-color: black; width: 50px; height: 15px; position: absolute;"></div>
+    <div id="bar3vil" style="background-color: black; width: 50px; height: 15px; position: absolute;"></div>
+    <div id="bar3hero" style="background-color: black; width: 50px; height: 15px; position: absolute;"></div>
+
+    <img id="img1vil" src="assets/graphics/{{villianObj.img1}}" height=30 width=30 style="position: absolute;">
+    <img id="img1hero" src="assets/graphics/{{heroObj.img1}}" height=30 width=30 style="position: absolute;">
+    <img id="img2vil" src="assets/graphics/{{villianObj.img2}}" height=30 width=30 style="position: absolute;">
+    <img id="img2hero" src="assets/graphics/{{heroObj.img2}}" height=30 width=30 style="position: absolute;">
+    <img id="img3vil" src="assets/graphics/{{villianObj.img3}}" height=30 width=30 style="position: absolute;">
+    <img id="img3hero" src="assets/graphics/{{heroObj.img3}}" height=30 width=30 style="position: absolute;">
+
+    <app-button (click)="hudLinkItem.show(1)" [name]="'Link Player'" [icon]="'user'"></app-button>
+    <app-button (click)="hudLinkItem.show(2)" [name]="'Link Game'" [icon]="'database'"></app-button>
+
+</app-page-shell>
+
+<app-hud-link-item #hudLinkItem (messageEvent)="buttonClicked($event)"></app-hud-link-item>

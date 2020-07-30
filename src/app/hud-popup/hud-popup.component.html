@@ -1,0 +1,64 @@
+<div class="modal fade" id="hudPopup" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" [ngStyle]="ngStyleNavBar()" style="border: 1px solid white;">
+            <div class="modal-header">
+                <b><i class="fa fa-user-secret"></i> HUD (Heads-Up Display)</b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align: left; font-size: 14px;" [ngStyle]="ngStyleBackground()">
+
+                <div style="text-align: center;">
+                    <div class="btn-group" style="width: 100%; max-width: 400px;">
+                        <button *ngFor="let name of buttons; let i = index" (click)="buttonIdx=i" type="button"
+                            class="btn-default roundButton segmentButton" [ngStyle]="ngStyleSegment(buttonIdx,i)">
+                            {{name}}
+                        </button>
+                    </div>
+                </div>
+                <div *ngIf="buttonIdx==0">
+                    <p>Use HUD to track the first pre-flop action of yourself and/or ONE other player at the table.
+                    </p>
+                    <p>Simply press the correct button for each hand: Fold, Check, Call or Raise. Note you are only tracking
+                        pre-flop betting. And specifically, first action of pre-flop. HUD will then calculate values for
+                        Passive/Aggressive and Tight/Loose play.
+                    </p>
+                    <p>It will then chart your values and the opponent's values side by side for comparison. It also
+                        calculates overall skill level and displays the appropriate PTP skill icon
+                    </p>
+                    <p>If you have a player or game linked, the stats are automatically saved every time you press a button
+                    </p>
+                    <p>Use this tool to measure your own play or use it to compare how you are playing versus someone else
+                        at the table.
+                    </p>
+                    <p>Good Luck!</p>
+    
+                </div>
+                <div *ngIf="buttonIdx==1">
+                    <p> Voluntarily Puts $ In Pot: VPIP and PFR are two basic but powerful poker statistics. Combined, they give you a clear picture of how your opponents are playing and ways to exploit their mistakes.
+		</p><p>VPIP tracks the percentage of hands in which a particular player voluntarily puts money into the pot preflop. VPIP increases when a player could fold but instead commits money to the pot preflop. This includes limping (merely calling the big blind), calling, and raising.
+		<p>Posting the small and big blinds does not influence the VPIP statistic. These actions are involuntary and therefore give no useful information on player tendencies.
+		<p>A player with a high VPIP and low PFR is one you want at your table. These opponents play far too many hands, and they usually play them very passively. These players call far too often preflop, and when they do raise, it's typically with very strong hands and bets that are weighted towards value.
+		<p>-pockercopilot.com</p>
+                </div>
+                <div *ngIf="buttonIdx==2">
+                    <p>Pre-Flop Raise. PFR tracks the percentage of hands in which a particular player makes a preflop raise when having the opportunity to fold or call instead. This includes reraises.
+		</p><p>VPIP is always higher than PFR (or equal). All preflop raises increase VPIP, but not all actions that influence VPIP will affect PFR. For example, limping preflop will increase VPIP but not PFR.
+		<p>New players usually call too much preflop. Calling far more often than raising causes your VPIP to rise higher than your PFR, creating a gap between the two stats. This is a warning sign that you are moving away from the aggressive strategy essential to winning at poker. Winning players have a tight gap between their VPIP and their PFR.
+		<p>A quick rule of the thumb is that the higher the PFR, the more aggressive a player is. The bigger the gap between VPIP and PFR, the more passive a player is.
+		<p>-pockercopilot.com'</p>
+                </div>
+                <div *ngIf="buttonIdx==3">
+                    <p>Aggression Factor. This is the percentage of VPIP hands that are raised. It measures raises versus calls.
+		</p><p>Every time you raise, your AF goes up, and every time you call it goes down. Checking and folding do not influence your AF
+		<p>Having a high AF means you are playing more aggressive poker and you generally do not want this number to drop below 25%.
+		<p>The number in red is the traditional AF notation written as raises per call.</p>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+<div style="padding: 10px; font-size: 16px;">
+    <div style="font-size: 12px;">{{playerHand.name}}</div>
+    <app-poker-card *ngFor="let card of playerHand.cards" [card]="card"></app-poker-card>
+    <div *ngIf="playerHand.isButton"><i class="fa fa-circle"></i></div>
+    <div *ngIf="displayMode==0">{{playerHand.preflopOdds}}%</div>
+    <div *ngIf="displayMode==1">{{playerHand.postflopOdds}}%</div>
+    <div *ngIf="displayMode==2">{{playerHand.turnOdds}}%</div>
+    <div *ngIf="displayMode==3">
+        <div style="font-size: 12px;">{{playerHand.result}}</div>
+        <div style="font-size: 12px;" *ngIf="playerHand.wins>0">Winner!</div>    
+    </div>
+</div>

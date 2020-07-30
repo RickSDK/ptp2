@@ -1,0 +1,53 @@
+<div class="modal fade" id="friendPopup" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" [ngStyle]="ngStyleBackground()">
+            <div class="modal-header">
+                <b><i class="fa fa-filter"></i> Friend Popup</b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" *ngIf="friend" style="text-align: center;">
+
+                <table align="center">
+                    <tr>
+                        <td>
+                            <img src="assets/graphics/{{friend.last10Obj.obj.img}}" height="120">
+                            
+                        </td>
+                        <td>
+                            <div style="font-size: 20px; font-weight: 700;">{{friend.name}}</div>
+                            <div>{{friend.location}}</div>
+                            <div style="font-size: 12px; font-weight: 700;">Last 10 Games</div>
+                            <div>{{friend.last10Obj.gameStr}}</div>
+                            <div>{{friend.last10Obj.obj.roiStr}}</div>
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="drTable">
+                    <tr *ngFor="let item of friend.last10GamesObj; let i = index" (mouseover)="item.hover=true"
+                        (mouseout)="item.hover=false"
+                        [style.background-color]="item.hover?lightColor:(i%2==0)?'#ddd':'white'"
+                        style="cursor: pointer;">
+                        <td>{{item.date}}</td>
+                        <td>
+                            <app-local-currency [amount]="item.amount"></app-local-currency>
+                        </td>
+                    </tr>
+                </table>
+
+                <app-button *ngIf="friend.userId != userObj.userId" (click)="removeFlg = true" [name]="'Remove Friend'" [icon]="'trash'" [butStyle]="4"></app-button>
+                <div *ngIf="removeFlg">
+                    <div>Remove this friend from your app?</div>
+                    <app-button (click)="removeFlg=false" [name]="'Cancel'" [icon]="'times'"></app-button>
+                    <app-button (click)="removeFriend()" [name]="'Yes!'" [icon]="'check'"></app-button>                  
+                </div>
+
+            </div>
+            <div class="modal-footer" [ngStyle]="ngStyleNavBar()">
+
+            </div>
+        </div>
+    </div>
+</div>

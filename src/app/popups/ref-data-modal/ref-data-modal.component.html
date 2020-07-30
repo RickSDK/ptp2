@@ -1,0 +1,44 @@
+<div class="modal fade" id="refDataModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" [ngStyle]="ngStyleBackground()">
+            <div class="modal-header">
+                <b> Available {{dataType}}</b>
+                <button [disabled]="newValueFlg" (click)="newValueFlg = true" style="float: right;" type="button"
+                    class="btn-default roundButton" [ngStyle]="ngStyleButton(1, newValueFlg)">
+                    <i class="fa fa-plus"></i> New Value
+                </button>
+            </div>
+            <div class="modal-body" style="padding: 0;">
+                <table width="100%" *ngIf="newValueFlg">
+                    <tr>
+                        <td width="95%">
+                            <input type="text" id="newValue">
+                        </td>
+                        <td style="white-space: nowrap;">
+                            <button (click)="addRefDataClicked()" type="button" class="btn-default roundButton"
+                                [ngStyle]="ngStyleButton(2)">
+                                <i class="fa fa-arrow-right"></i>Add
+                            </button>
+                        </td>
+                    </tr>
+
+                </table>
+
+                <div *ngFor="let option of options" (click)="selectValuePressed(option)" class="optionClass"
+                    (click)="buttonClicked(option)" (mouseover)="option.hover=true" (mouseout)="option.hover=false"
+                    [style.background-color]="option.hover?'white':lightColor">
+                    <i *ngIf="selectedValue == option.name" class="fa fa-check" style="color: green;"></i>
+                    {{option.name}} <span class="smallText">({{option.count}})</span>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button (click)="closeModal('#refDataModal')" type="button" class="btn-default roundButton"
+                    [ngStyle]="ngStyleButton(3)">
+                    <i class="fa fa-times"></i>Cancel
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>

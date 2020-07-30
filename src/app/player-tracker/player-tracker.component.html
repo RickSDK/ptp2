@@ -1,0 +1,26 @@
+<app-page-shell (messageEvent)="rightButtonPressed ()" [title]="'Player Tracker'" icon="user" rButton="plus">
+
+    <div class="darkBox">
+        Keep stats and notes on fellow players you often play against.
+    </div>
+    <table class="drTable">
+        <tr *ngFor="let player of playersList; let i = index" (click)="playerTrackerPopup.show(player)" (mouseover)="player.hover=true"
+            (mouseout)="player.hover=false" [style.background-color]="player.hover?lightColor:(i%2==0)?'#ddd':'white'"
+            style="cursor: pointer;">
+            <td width="44">
+                <img src="assets/graphics/playerType{{player.playerType}}.png" width="50">
+             </td>
+             <td style="padding-left: 10px; padding-right: 10px; white-space: nowrap; overflow: hidden; text-align: left;">
+                <div style="font-size: 18px; font-weight: 700;" title="{{player.id}}">{{player.name}}</div>
+                <div>{{player.casino}}</div>
+            </td>
+            <td style="padding-left: 10px; padding-right: 10px; white-space: nowrap; overflow: hidden; text-align: right;">
+                <div>{{player.skillName}}</div>
+                <div [style.color]="darkColor">{{player.label}}</div>
+            </td>
+        </tr>
+    </table>
+
+</app-page-shell>
+
+<app-player-tracker-popup #playerTrackerPopup (messageEvent)="playerCreated($event)"></app-player-tracker-popup>

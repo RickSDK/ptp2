@@ -1,0 +1,33 @@
+<app-page-shell [title]="'Game Summary'" [rButton]="'edit'" (messageEvent)="buttonClicked ($event)">
+    <div *ngIf="game">
+        <table [style.background-color]="darkColor" width="100%">
+            <tr>
+                <td width="60"><img src="assets/graphics/playerType{{game.skillNumber}}.png" width="60"
+                        title="{{game.skillName}}"></td>
+                <td align="left" style="padding: 5px;">
+                    <div [ngStyle]="ngStyleLightColor()" title="id={{game.id}}">
+                        <i class="fa {{game.type=='Tournament'?'fa-trophy':'fa-money'}}"></i>&nbsp;
+                        <b>{{game.name}}</b>
+                    </div>
+                    <div>{{game.location}} ({{game.weekday}} {{game.daytime}})</div>
+                    <div style="font-size: 12px;">{{game.localStartTime}}</div>
+                </td>
+                <td align="right" style="padding: 5px;">
+                    <div style="font-size: 32px; font-weight: 700;">
+                        <app-local-currency [amount]="game.profit" [lightFlg]="true"></app-local-currency>
+                    </div>
+                    <div>ROI: {{game.roiStr}}</div>
+                </td>
+            </tr>
+        </table>
+        <canvas [ngStyle]="ngStyleButton(3)" id="myCanvas" style="max-height: 250px;"></canvas>
+        <table class="drTable">
+            <tr *ngFor="let item of items">
+                <td width="50%" style="text-align: right;">{{item.name}}:&nbsp;</td>
+                <td style="text-align: left; font-weight: 500;">&nbsp;{{item.value}}</td>
+            </tr>
+        </table>
+
+
+    </div>
+</app-page-shell>

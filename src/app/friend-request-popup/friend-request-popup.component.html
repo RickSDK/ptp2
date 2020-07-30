@@ -1,0 +1,52 @@
+<div class="modal fade" id="friendRequestPopup" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" [ngStyle]="ngStyleBackground()">
+            <div class="modal-header">
+                <b><i class="fa fa-user"></i> Friend Request Popup</b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+
+                <div *ngIf="!friendFoundFlg && !loadingFlg">
+                    <app-form-input [inputFieldObj]="emailObj"></app-form-input>
+                    <app-button (click)="findUser()" [name]="'Find'" [class]="'medium'"></app-button>
+                </div>
+                <app-progress-bar *ngIf="loadingFlg"></app-progress-bar>
+
+                <div *ngIf="friendObj" class="blackBox">
+                    <div *ngIf="friendFoundFlg">
+                        <div>User Found:</div>
+                        {{friendObj.firstName}} {{friendObj.email}} {{friendObj.status}}
+                    </div>
+                    <div *ngIf="!friendFoundFlg">User not found!</div>
+                </div>
+                <app-button
+                    *ngIf="friendFoundFlg && friendObj.status != 'Active'  && friendObj.status != 'Request Pending'"
+                    (click)="addFriend()" [name]="'Add Friend'" [class]="'medium'">
+                </app-button>
+
+                <div>Current Friends</div>
+                <table class="drTable">
+                    <tr *ngFor="let item of friendList; let i = index" (mouseover)="item.hover=true"
+                        (mouseout)="item.hover=false"
+                        [style.background-color]="item.hover?lightColor:(i%2==0)?'#ddd':'white'"
+                        style="cursor: pointer;">
+                        <td>{{item.id}}</td>
+                        <td>{{item.firstName}}</td>
+                        <td>{{item.email}}</td>
+                        <td>
+                            <div>{{item.status}}</div>
+                            <app-button *ngIf="item.status == 'Requested'" (click)="acceptFriend(item)"
+                                [name]="'Add Friend'"></app-button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer" [ngStyle]="ngStyleNavBar()">
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,90 @@
+<app-page-shell [title]="title">
+    <div *ngIf="numPlayers <= 0">
+        <div *ngFor="let option of options" class="optionClass" (click)="buttonClicked(option)"
+            (mouseover)="option.hover=true" (mouseout)="option.hover=false"
+            [style.background-color]="option.hover?'white':lightColor">
+            <i class="fa {{option.icon}}"></i> {{option.name}} <span *ngIf="option.name=='Export' && allGames.length>0"
+                style="font-size: 12px;">({{allGames.length}} games)</span>
+        </div>
+    </div>
+
+    <div *ngIf="numPlayers > 0" style="padding-bottom: 55px;">
+        <div *ngFor="let option of oddsOptions" class="pokerClass" (click)="chooseCardPopup.show(option, usedCardHash)"
+            (mouseover)="option.hover=true" (mouseout)="option.hover=false"
+            [style.background-color]="option.hover?'white':lightColor">
+            <table width="100%">
+                <tr>
+                    <td width="50%" align="right">{{option.name}} </td>
+                    <td width="50%" align="left">
+                        <app-poker-card *ngFor="let card of option.cards" [card]="card"></app-poker-card>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div *ngIf="isHandFlg" style="text-align: center;">
+            <div style="display: inline-block; max-width: 320px;">
+                <app-form-input (messageEvent)="changesMade($event)" [inputFieldObj]="dateObj"></app-form-input>
+                <app-form-input (messageEvent)="changesMade($event)" [inputFieldObj]="potSizeObj"></app-form-input>
+                <app-form-input (messageEvent)="changesMade($event)" [inputFieldObj]="commentsObj"></app-form-input>
+                <app-form-input (messageEvent)="changesMade($event)" [inputFieldObj]="buttonObj"></app-form-input>
+            </div>
+        </div>
+        <div *ngIf="calculateDoneFlg">
+
+            <div>Pre-Flop Odds</div>
+            <table class="drTable">
+                <tr *ngFor="let item of oddsItems">
+                    <td width="50%" style="text-align: right;">{{item.name}}:&nbsp;</td>
+                    <td style="text-align: left; font-weight: 500;">&nbsp;{{item.preflopOdds}}%</td>
+                </tr>
+            </table>
+            <div>Post-Flop Odds</div>
+            <table class="drTable">
+                <tr *ngFor="let item of oddsItems">
+                    <td width="50%" style="text-align: right;">{{item.name}}:&nbsp;</td>
+                    <td style="text-align: left; font-weight: 500;">&nbsp;{{item.postflopOdds}}%</td>
+                </tr>
+            </table>
+            <div>Turn Odds</div>
+            <table class="drTable">
+                <tr *ngFor="let item of oddsItems">
+                    <td width="50%" style="text-align: right;">{{item.name}}:&nbsp;</td>
+                    <td style="text-align: left; font-weight: 500;">&nbsp;{{item.turnOdds}}%</td>
+                </tr>
+            </table>
+            <div>Final Result</div>
+            <table class="drTable">
+                <tr *ngFor="let item of oddsItems">
+                    <td width="50%" style="text-align: right;">{{item.name}}:&nbsp;</td>
+                    <td style="text-align: left; font-weight: 500;">&nbsp;{{item.result}} <span *ngIf="item.wins>0"
+                            style="color: green;">(<i class="fa fa-check"></i>
+                            Winner!)</span></td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+
+    <div *ngIf="numPlayers > 0" [ngStyle]="ngStyleNavBar()"
+        style="position: fixed; bottom: 0; width: 100%; max-width: 800px; height: 50px; padding: 3px;">
+        <app-button *ngIf="!calculateDoneFlg" [disabled]="allCardsAreBlankFlg" (click)="clearButtonPressed()" [name]="'Clear'" [icon]="'trash'">
+        </app-button>
+        <app-button *ngIf="!calculateDoneFlg" [disabled]="!someCardsAreBlankFlg" (click)="randomButtonPressed()"
+            [name]="'Random'" [icon]="'refresh'"></app-button>
+        <app-button *ngIf="!calculateDoneFlg" [disabled]="!changesMadeFlg" (click)="calculateButtonPressed()"
+            [name]="'Calc!'" [icon]="'calculator'"></app-button>
+        <app-button [disabled]="!calculateDoneFlg" (click)="viewHandPopup.show(hand)" [name]="'View'" [icon]="'eye'">
+        </app-button>
+        <app-button *ngIf="calculateDoneFlg && changesMadeFlg" [disabled]="!changesMadeFlg" (click)="saveButtonPressed()" [name]="'Save'"
+            [icon]="'floppy-o'"></app-button>
+        <app-button *ngIf="calculateDoneFlg && !changesMadeFlg" (click)="confirmationPopup.show('Permanently delete this hand?')" [name]="'Delete'"
+            [icon]="'trash'" [butStyle]="4"></app-button>
+    </div>
+
+</app-page-shell>
+
+<app-choose-card-popup #chooseCardPopup (messageEvent)="cardChanged($event)"></app-choose-card-popup>
+<app-info-popup #infoPopup></app-info-popup>
+<app-view-hand-popup #viewHandPopup></app-view-hand-popup>
+<app-confirmation-popup #confirmationPopup (messageEvent)="confirmButtonClicked($event)"></app-confirmation-popup>

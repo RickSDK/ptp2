@@ -31,6 +31,34 @@ import { SummaryBarComponent } from './summary-bar/summary-bar.component';
 import { YearBarComponent } from './year-bar/year-bar.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { GameTypeBarComponent } from './game-type-bar/game-type-bar.component';
+import { FriendPopupComponent } from './friend-popup/friend-popup.component';
+import { FriendRequestPopupComponent } from './friend-request-popup/friend-request-popup.component';
+import { FriendsComponent } from './friends/friends.component';
+import { GameComponent } from './game/game.component';
+import { GameLiveComponent } from './game-live/game-live.component';
+import { GamesComponent } from './games/games.component';
+import { GoalsComponent } from './goals/goals.component';
+import { HandLayoutComponent } from './hand-layout/hand-layout.component';
+import { HandTrackerComponent } from './hand-tracker/hand-tracker.component';
+import { HandTrackerPopupComponent } from './hand-tracker-popup/hand-tracker-popup.component';
+import { HudComponent } from './hud/hud.component';
+import { HudLinkItemComponent } from './hud-link-item/hud-link-item.component';
+import { HudPopupComponent } from './hud-popup/hud-popup.component';
+import { LocalCurrencyComponent } from './local-currency/local-currency.component';
+import { OddsComponent } from './odds/odds.component';
+import { OldGameComponent } from './old-game/old-game.component';
+import { PieChartsComponent } from './pie-charts/pie-charts.component';
+import { PlayerTrackerComponent } from './player-tracker/player-tracker.component';
+import { PlayerTrackerPopupComponent } from './player-tracker-popup/player-tracker-popup.component';
+import { PokerCardComponent } from './poker-card/poker-card.component';
+import { GameInfoPopupComponent } from './popups/game-info-popup/game-info-popup.component';
+import { InfoModalComponent } from './popups/info-modal/info-modal.component';
+import { NumberModalComponent } from './popups/number-modal/number-modal.component';
+import { PausePopupComponent } from './popups/pause-popup/pause-popup.component';
+import { RebuyPopupComponent } from './popups/rebuy-popup/rebuy-popup.component';
+import { RefDataModalComponent } from './popups/ref-data-modal/ref-data-modal.component';
+import { TextEntryPopupComponent } from './popups/text-entry-popup/text-entry-popup.component';
+import { ViewHandPopupComponent } from './view-hand-popup/view-hand-popup.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +90,35 @@ import { GameTypeBarComponent } from './game-type-bar/game-type-bar.component';
     SummaryBarComponent,
     YearBarComponent,
     ProgressBarComponent,
-    GameTypeBarComponent
+    GameTypeBarComponent,
+    FriendPopupComponent,
+    FriendRequestPopupComponent,
+    FriendsComponent,
+    GameComponent,
+    GameLiveComponent,
+    GamesComponent,
+    GoalsComponent,
+    HandLayoutComponent,
+    HandTrackerComponent,
+    HandTrackerPopupComponent,
+    HudComponent,
+    HudLinkItemComponent,
+    HudPopupComponent,
+    LocalCurrencyComponent,
+    OddsComponent,
+    OldGameComponent,
+    PieChartsComponent,
+    PlayerTrackerComponent,
+    PlayerTrackerPopupComponent,
+    PokerCardComponent,
+    GameInfoPopupComponent,
+    InfoModalComponent,
+    NumberModalComponent,
+    PausePopupComponent,
+    RebuyPopupComponent,
+    RefDataModalComponent,
+    TextEntryPopupComponent,
+    ViewHandPopupComponent
   ],
   imports: [
     BrowserModule,

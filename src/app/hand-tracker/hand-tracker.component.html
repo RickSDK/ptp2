@@ -1,0 +1,31 @@
+<app-page-shell lButton="home" (messageEvent)="rightButtonPressed ()" [title]="'Hand Tracker'" icon="hand-paper-o" rButton="plus">
+
+    <div class="darkBox">
+        Re-create some of your favorite wins and bad beats of all time.
+    </div>
+
+    <table class="drTable">
+        <tr *ngFor="let hand of handList; let i = index" (mouseover)="hand.hover=true" [routerLink]="['/odds']" [queryParams]="{id: hand.id}"
+            (mouseout)="hand.hover=false" [style.background-color]="hand.hover?lightColor:(i%2==0)?'#ddd':'white'"
+            style="cursor: pointer;">
+            <td width="80">
+                <app-poker-card *ngFor="let card of hand.allHands[0].cards" [card]="card"></app-poker-card>
+             </td>
+             <td style="padding-left: 10px; padding-right: 10px; white-space: nowrap; overflow: hidden; text-align: left;">
+                <div style="font-size: 18px; font-weight: 700;" title="{{hand.id}}">{{hand.name}}
+                    <i class="fa fa-calculator" *ngIf="!hand.allHands[0].val"></i>
+                </div>
+                <div>{{hand.handDate}}</div>
+            </td>
+            <td style="padding-left: 10px; padding-right: 10px; white-space: nowrap; overflow: hidden; text-align: right;">
+                <div *ngIf="hand.winFlg">Win!</div>
+                <div *ngIf="!hand.winFlg">Loss</div>
+                <app-local-currency [amount]="hand.potSize"></app-local-currency>
+            </td>
+        </tr>
+    </table>
+
+</app-page-shell>
+
+<app-hand-tracker-popup #handTrackerPopup></app-hand-tracker-popup>
+

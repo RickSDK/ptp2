@@ -1,0 +1,71 @@
+<app-page-shell [title]="title" [rButton]="'plus'" (messageEvent)="buttonClicked ($event)">
+
+
+    <app-progress-bar *ngIf="loadingFlg"></app-progress-bar>
+
+    <div *ngIf="!loggedInFlg">
+        <p>&nbsp;</p>
+        <button [routerLink]="['/options']" type="button" class="btn-default roundButton segmentButton"
+            [ngStyle]="ngStyleSegment(buttonIdx,1)">
+            Options Page
+        </button>
+    </div>
+    
+    <div *ngIf="loggedInFlg">
+
+
+        <div style="text-align: center; padding: 10px; background-color: #ccc; color: black; font-size: 24px;">
+            Last 90 days
+        </div>
+
+
+        <canvas [ngStyle]="ngStyleButton(3)" id="myCanvas" style="max-height: 250px;"></canvas>
+        <div style="text-align: center; padding: 10px; background-color: #ccc;">
+            <div class="btn-group" style="width: 100%; max-width: 400px;">
+                <button *ngFor="let name of buttonNames; let i = index" (click)="changeType(i)" type="button"
+                    class="btn-default roundButton segmentButton" [ngStyle]="ngStyleSegment(buttonIdx,i)">
+                    {{name}}
+                </button>
+            </div>
+        </div>
+        <table class="drTable">
+            <tr *ngFor="let item of friendItems; let i = index" (click)="friendPopup.show(item)" (mouseover)="item.hover=true"
+                (mouseout)="item.hover=false" [style.background-color]="item.hover?lightColor:(i%2==0)?'#ddd':'white'"
+                style="cursor: pointer;">
+                <td width="50">
+                    <img *ngIf="buttonIdx==0" src="assets/graphics/{{item.last10Obj.obj.img}}" width="50">
+                    <img *ngIf="buttonIdx==1" src="assets/graphics/{{item.monthStatsObj.obj.img}}" width="50">
+                    <img *ngIf="buttonIdx==2" src="assets/graphics/{{item.yearStatsObj.obj.img}}" width="50">
+                </td>
+                <td align="left" style="padding-left: 10px;">
+                    <div style="font-size: 18px; font-weight: 700;">{{item.name}}</div>
+                    <div style="font-size: 12px; color: gray;">{{item.location}}</div>
+                    <div *ngIf="buttonIdx==0">{{item.last10Obj.gameStr}}</div>
+                    <div *ngIf="buttonIdx==1">{{item.monthStatsObj.gameStr}}</div>
+                    <div *ngIf="buttonIdx==2">{{item.yearStatsObj.gameStr}}</div>
+                </td>
+                <td align="right" style="padding-right: 10px;">
+                    <div *ngIf="buttonIdx==0">
+                        <app-local-currency [amount]="item.last10Obj.profit"></app-local-currency>
+                    </div>
+                    <div *ngIf="buttonIdx==1">
+                        <app-local-currency [amount]="item.monthStatsObj.profit"></app-local-currency>
+                    </div>
+                    <div *ngIf="buttonIdx==2">
+                        <app-local-currency [amount]="item.yearStatsObj.profit"></app-local-currency>
+                    </div>
+
+                    <div *ngIf="buttonIdx==0">Stk: {{item.last10Obj.streakStr}}</div>
+                    <div *ngIf="buttonIdx==1">Stk: {{item.monthStatsObj.streakStr}}</div>
+                    <div *ngIf="buttonIdx==2">Stk: {{item.yearStatsObj.streakStr}}</div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</app-page-shell>
+
+<app-info-popup #infoModal></app-info-popup>
+<app-spinner #spinnerPopup></app-spinner>
+<app-friend-popup #friendPopup (messageEvent)="refreshScreen($event)"></app-friend-popup>
+<app-friend-request-popup #friendRequestPopup (messageEvent)="refreshScreen($event)"></app-friend-request-popup>

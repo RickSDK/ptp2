@@ -1,0 +1,37 @@
+<div class="modal fade" id="numberModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document" style="max-width: 320px;">
+        <div class="modal-content" [ngStyle]="ngStyleBackground()">
+            <div class="modal-header">
+                <b><i class="fa fa-calculator"></i> {{name}}</b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div style="background-color: black; font-size: 24px; text-align: center;">{{amount}}</div>
+                <table width="200" align="center">
+                    <tr>
+                        <td>
+                            <app-button *ngFor="let num of numbers" [name]="num" (click)="numberPressed(num)" [class]="'calcButton'"></app-button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <app-button [name]="'0'" (click)="numberPressed(0)" [class]="'width90'"></app-button>
+                            <app-button [name]="'Clear'" (click)="numberPressed(-1)" [class]="'width90'"></app-button>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+            <div class="modal-footer">
+                <button (click)="closeModal('#numberModal')" type="button" class="btn-default roundButton"
+                    [ngStyle]="ngStyleButton(3)">
+                    <i class="fa fa-times"></i>Cancel
+                </button>
+                <app-button [name]="'Select'" (click)="selectPressed()"></app-button>
+            </div>
+        </div>
+    </div>
+</div>

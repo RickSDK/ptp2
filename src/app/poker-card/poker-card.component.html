@@ -1,0 +1,9 @@
+<span *ngIf="!hiddenFlg" [ngStyle]="ngStyleCardSuit(suit)" class="pokerCard">
+    <div style="font-size: 18px;">{{face}}</div>
+    <div *ngIf="suit=='s'">&#x2660;</div>
+    <div *ngIf="suit=='h'">&#x2665;</div>
+    <div *ngIf="suit=='c'">&#x2663;</div>
+    <div *ngIf="suit=='d'">&#x2666;</div>
+</span>
+
+<img *ngIf="hiddenFlg" src="assets/graphics/cardBack.png" height="50" style="padding: 2px;">
