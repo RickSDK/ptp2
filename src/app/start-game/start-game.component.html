@@ -1,0 +1,24 @@
+<app-page-shell [title]="'Add Game'">
+
+    <div [ngStyle]="ngStyleGrayColor()" style="padding: 20px;" class="box">
+        <table width="100%">
+            <tr>
+                <td width="50%">
+                    <button [routerLink]="'/old-game'" [queryParams]="{liveFlg: 'yes'}" type="button" class="btn-primary roundButton"
+                        [ngStyle]="ngStyleButton(1)">
+                        <i class="fa fa-clock-o" style="font-size: 32px;"></i>
+                        <div class="large-text">Starting Now</div>
+                    </button>
+                </td>
+                <td>
+                    <button [routerLink]="'/old-game'" type="button" class="btn-primary roundButton"
+                        [ngStyle]="ngStyleButton(1)">
+                        <i class="fa fa-check" style="font-size: 32px;"></i>
+                        <div class="large-text">Completed</div>
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</app-page-shell>

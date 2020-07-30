@@ -59,6 +59,11 @@ import { RebuyPopupComponent } from './popups/rebuy-popup/rebuy-popup.component'
 import { RefDataModalComponent } from './popups/ref-data-modal/ref-data-modal.component';
 import { TextEntryPopupComponent } from './popups/text-entry-popup/text-entry-popup.component';
 import { ViewHandPopupComponent } from './view-hand-popup/view-hand-popup.component';
+import { ReportsComponent } from './reports/reports.component';
+import { StartGameComponent } from './start-game/start-game.component';
+import { StatsComponent } from './stats/stats.component';
+import { TrackersComponent } from './trackers/trackers.component';
+import { UpgradeComponent } from './upgrade/upgrade.component';
 
 @NgModule({
   declarations: [
@@ -118,7 +123,12 @@ import { ViewHandPopupComponent } from './view-hand-popup/view-hand-popup.compon
     RebuyPopupComponent,
     RefDataModalComponent,
     TextEntryPopupComponent,
-    ViewHandPopupComponent
+    ViewHandPopupComponent,
+    ReportsComponent,
+    StartGameComponent,
+    StatsComponent,
+    TrackersComponent,
+    UpgradeComponent
   ],
   imports: [
     BrowserModule,

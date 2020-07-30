@@ -1,0 +1,22 @@
+<app-page-shell title="Reports" icon="list-alt" rButton="home">
+
+    <app-game-type-bar [selectedGameType]="selectedGameType" (messageEvent)="gameTypeChanged($event)">
+    </app-game-type-bar>
+    <app-year-bar [selectedYear]="selectedYear" (messageEvent)="yearChanged($event)"></app-year-bar>
+
+
+    <div *ngFor="let report of reportItems">
+        <div *ngIf="report.items.length>0">
+            <div [ngStyle]="ngStyleNavBar()">{{report.name}}</div>
+            <table class="drTable">
+                <tr *ngFor="let item of report.items">
+                    <td width="50%" style="text-align: right;">{{item.name}}:&nbsp;</td>
+                    <td style="text-align: left; font-weight: 500;">&nbsp;
+                        <app-local-currency [amount]="item.amount"></app-local-currency>
+                    </td>
+                </tr>
+            </table>    
+        </div>
+    </div>
+
+</app-page-shell>

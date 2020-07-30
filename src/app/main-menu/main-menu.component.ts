@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
-//import { InfoModalComponent } from '../popups/info-modal/info-modal.component';
+import { InfoModalComponent } from '../popups/info-modal/info-modal.component';
 
 @Component({
   selector: 'app-main-menu',
@@ -8,7 +8,7 @@ import { BaseComponent } from '../base/base.component';
   styleUrls: ['./main-menu.component.scss']
 })
 export class MainMenuComponent extends BaseComponent implements OnInit {
-  //@ViewChild(InfoModalComponent) infoModalComponent: InfoModalComponent;
+  @ViewChild(InfoModalComponent) infoModalComponent: InfoModalComponent;
   public appVersion = this.getVersion();
   public colorThemeName = localStorage.colorThemeName || 'Default Theme';
 
@@ -35,6 +35,6 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
     console.log('min year: ', year);
   }
   infoButtonClicked(str:string) {
-    //this.infoModalComponent.show();
+    this.infoModalComponent.show();
   }
 }

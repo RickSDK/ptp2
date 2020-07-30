@@ -1,0 +1,12 @@
+<app-page-shell [title]="title">
+
+    <div style="padding: 50px;">
+        <app-button [name]="'Player Tracker'" [routerLink]="['/player-tracker']" [class]="'main-button'" [icon]="'user'"></app-button>
+
+        <app-button [name]="'Hand Tracker'" [routerLink]="['/hand-tracker']" [class]="'main-button'" [icon]="'hand-paper-o'"></app-button>
+
+        <app-button [name]="'HUD Tracker'" [routerLink]="['/hud']" [class]="'main-button'" [icon]="'user-secret'"></app-button>
+        <div>Note: This HUD Tracker is for live games only. It allows you to track your own play and/or one opponent, in real time.</div>
+    </div>
+
+</app-page-shell>
