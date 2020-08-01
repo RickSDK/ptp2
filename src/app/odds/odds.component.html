@@ -1,4 +1,4 @@
-<app-page-shell [title]="title">
+<app-page-shell [title]="title" [rButton]="'home'">
     <div *ngIf="numPlayers <= 0">
         <div *ngFor="let option of options" class="optionClass" (click)="buttonClicked(option)"
             (mouseover)="option.hover=true" (mouseout)="option.hover=false"

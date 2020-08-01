@@ -53,7 +53,7 @@ export class BaseComponent implements OnInit {
   }
 
   getVersion() {
-    var version = '2.0.5';
+    var version = '2.0.7';
     if (this.isAndroidVersion())
       return 'Android '+version;
     else

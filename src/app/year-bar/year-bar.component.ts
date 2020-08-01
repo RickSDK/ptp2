@@ -19,8 +19,14 @@ export class YearBarComponent implements OnInit {
   ngOnInit(): void {
     var now = new Date();
     this.nowYear = now.getFullYear();
+
+    console.log('selectedYear1', this.selectedYear);
+    console.log('localStorage.selectedYear', localStorage.selectedYear);
+
     if (!this.selectedYear)
-      this.selectedYear = 'Last 10';
+      this.selectedYear = localStorage.selectedYear || 'Last 10';
+
+      console.log('selectedYear2', this.selectedYear);
 
     this.year = parseInt(this.selectedYear);
     if (this.selectedYear == 'Last 10')
@@ -49,6 +55,7 @@ export class YearBarComponent implements OnInit {
     this.year += num;
     this.selectedYear = this.year.toString();
     this.displayYearStrings();
+    localStorage.selectedYear = this.selectedYear;
     this.messageEvent.emit(this.selectedYear);
   }
 }

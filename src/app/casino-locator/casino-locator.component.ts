@@ -16,6 +16,7 @@ export class CasinoLocatorComponent extends BaseHttpComponent implements OnInit 
   constructor() { super(); }
 
   ngOnInit(): void {
+    this.loadingFlg = true;
     this.getLocation();
   }
   segmentChanged(num: number) {
@@ -94,6 +95,8 @@ export class CasinoLocatorComponent extends BaseHttpComponent implements OnInit 
     this.totalCasinos = totalCasinos;
     if (this.displayCasinos.length == 0)
       this.showAlertPopup('no casinos found');
+
+    this.loadingFlg = false;
   }
 }
 

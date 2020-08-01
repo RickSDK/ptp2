@@ -23,7 +23,7 @@
 
     <app-game-type-bar *ngIf="buttonIdx==0" [selectedGameType]="selectedGameType"
         (messageEvent)="gameTypeChanged($event)"></app-game-type-bar>
-    <app-year-bar *ngIf="buttonIdx==0" [selectedYear]="selectedYear" (messageEvent)="yearChanged($event)">
+    <app-year-bar *ngIf="buttonIdx==0" (messageEvent)="yearChanged($event)">
     </app-year-bar>
     <app-progress-bar *ngIf="loadingFlg"></app-progress-bar>
     <app-summary-bar [summaryObj]="summaryObj"></app-summary-bar>

@@ -8,16 +8,16 @@ import { BaseComponent } from '../base/base.component';
 })
 export class ReportsComponent extends BaseComponent implements OnInit {
   public items = [];
-  public reportItems:any[] = [
-    {name: 'Cash vs Tournament', field: 'type', items: []},
-    {name: 'Game', field: 'gameType', items: []},
-    {name: 'Stakes', field: 'stakes', items: []},
-    {name: 'Limit', field: 'limit', items: []},
-    {name: 'Location', field: 'location', items: []},
-    {name: 'Year', field: 'year', items: []},
-    {name: 'Month', field: 'month', items: []},
-    {name: 'Weekday', field: 'weekday', items: []},
-    {name: 'Daytime', field: 'daytime', items: []},
+  public reportItems: any[] = [
+    { name: 'Cash vs Tournament', field: 'type', items: [] },
+    { name: 'Game', field: 'gameType', items: [] },
+    { name: 'Stakes', field: 'stakes', items: [] },
+    { name: 'Limit', field: 'limit', items: [] },
+    { name: 'Location', field: 'location', items: [] },
+    { name: 'Year', field: 'year', items: [] },
+    { name: 'Month', field: 'month', items: [] },
+    { name: 'Weekday', field: 'weekday', items: [] },
+    { name: 'Daytime', field: 'daytime', items: [] },
   ]
 
   constructor() { super(); }
@@ -35,24 +35,39 @@ export class ReportsComponent extends BaseComponent implements OnInit {
     this.filterGames(true);
     this.loadingFlg = false;
   }
+  changeGroup(num: number) {
+    this.buttonIdx = num;
+  }
   postFilterGames() {
-    var x=0;
+    var x = 0;
     this.reportItems.forEach(report => {
-    
-      
-      var typeHash:any = {}
+      var profitHash: any = {}
+      var gameHash: any = {}
+      var minutesHash: any = {}
       this.filteredGames.forEach(game => {
-        if (typeHash[game[report.field]])
-          typeHash[game[report.field]] += game.profit;
-        else
-          typeHash[game[report.field]] = game.profit;
+        if (gameHash[game[report.field]]) {
+          gameHash[game[report.field]]++;
+          profitHash[game[report.field]] += game.profit;
+          minutesHash[game[report.field]] += game.minutes;
+        } else {
+          gameHash[game[report.field]] = 1;
+          profitHash[game[report.field]] = game.profit;
+          minutesHash[game[report.field]] = game.minutes;
+        }
       });
-      var keys = Object.keys(typeHash);
-      
-      var items:any[] = [];
+      var keys = Object.keys(gameHash);
+
+      var items: any[] = [];
       keys.forEach(key => {
-        if(key)
-          items.push({name: key, amount: typeHash[key], value: this.localCurrency(typeHash[key])});
+        if (key) {
+          var profit = profitHash[key];
+          var games = gameHash[key];
+          var minutes = minutesHash[key];
+          var hourly = 0;
+          if (minutes > 0)
+            hourly = Math.round(profit * 60 / minutes);
+          items.push({ name: key, amount: profitHash[key], value: this.localCurrency(profitHash[key]), games: gameHash[key], hourly: hourly });
+        }
       });
       this.reportItems[x++].items = items;
 

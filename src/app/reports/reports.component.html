@@ -4,6 +4,23 @@
     </app-game-type-bar>
     <app-year-bar [selectedYear]="selectedYear" (messageEvent)="yearChanged($event)"></app-year-bar>
 
+    <div style="text-align: center; padding: 10px; background-color: #ccc;">
+        <div class="btn-group" style="width: 100%; max-width: 400px;">
+            <button (click)="changeGroup(0)" type="button" class="btn-default roundButton segmentButton"
+                [ngStyle]="ngStyleSegment(buttonIdx,0)">
+                <i class="fa fa-usd"></i> Profit
+            </button>
+            <button (click)="changeGroup(1)" type="button" class="btn-default roundButton segmentButton"
+                [ngStyle]="ngStyleSegment(buttonIdx,1)">
+                <i class="fa fa-clock-o"></i> Hourly
+            </button>
+            <button (click)="changeGroup(2)" type="button" class="btn-default roundButton segmentButton"
+                [ngStyle]="ngStyleSegment(buttonIdx,2)">
+                <i class="fa fa-database"></i> Games
+            </button>
+        </div>
+    </div>
+
     <app-progress-bar *ngIf="loadingFlg"></app-progress-bar>
 
     <div *ngFor="let report of reportItems">
@@ -12,11 +29,13 @@
             <table class="drTable">
                 <tr *ngFor="let item of report.items">
                     <td width="50%" style="text-align: right;">{{item.name}}:&nbsp;</td>
-                    <td style="text-align: left; font-weight: 500;">&nbsp;
-                        <app-local-currency [amount]="item.amount"></app-local-currency>
+                    <td style="text-align: left; font-weight: 500; padding-left: 5px;">
+                        <app-local-currency *ngIf="buttonIdx==0" [amount]="item.amount"></app-local-currency>
+                        <div *ngIf="buttonIdx==1"><app-local-currency [amount]="item.hourly"></app-local-currency>/hr</div>
+                        <div *ngIf="buttonIdx==2">{{item.games}} Games</div>
                     </td>
                 </tr>
-            </table>    
+            </table>
         </div>
     </div>
 

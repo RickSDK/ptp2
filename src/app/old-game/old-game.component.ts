@@ -43,7 +43,7 @@ export class OldGameComponent extends BaseHttpComponent implements OnInit {
   public rebuys = 0;
   public breakMinutes = 0;
   public selectedType = 0;
-  public buyinObj: any;
+  public buyinObj = currencyObj(0);
   public buttonNum = 0;
   public newGameFlg: boolean = false;
   public cashoutObj = currencyObj(0);
@@ -119,9 +119,11 @@ export class OldGameComponent extends BaseHttpComponent implements OnInit {
   changeGameType(num: number) {
     this.changesMadeFlg = true;
     this.buttonIdx = num;
-    var buyin = this._pokerService.getTopDataType(num + 6, this.allGames);
-    this.buyinObj = currencyObj(numberVal(buyin));
-    this.profitObj = currencyObj(buyin * -1);
+    if(this.buyinObj.amount==0) {
+      var buyin = this._pokerService.getTopDataType(num + 6, this.allGames);
+      this.buyinObj = currencyObj(numberVal(buyin));
+      this.profitObj = currencyObj(buyin * -1);  
+    }
   }
   timeChanged() {
     this.changesMadeFlg = true;

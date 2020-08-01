@@ -8,7 +8,7 @@
             </button>
         </div>
     </div>
-
+    <app-progress-bar *ngIf="loadingFlg"></app-progress-bar>
 
     <div *ngFor="let option of displayCasinos" class="ptpCell" (click)="casinoPopup.show(option)"
     (mouseover)="option.hover=true" (mouseout)="option.hover=false"

@@ -26,7 +26,7 @@ export class OddsComponent extends BaseComponent implements OnInit {
     { name: '6 Players', num: 6 },
   ];
   public oddsOptions: any[] = [];
-  public dateObj = { name: 'Date', type: 'date', requiredFlg: true, value: '' };
+  public dateObj = { name: 'Hand Date', type: 'text', requiredFlg: true, value: '' };
   public potSizeObj = { name: 'Pot Size', type: 'number', options: [], value: '' };
   public commentsObj = { name: 'Comments', max: 500, type: 'textarea', value: '' };
   public buttonObj = { name: 'Button', type: 'dropdown', options: [], value: '' };
