@@ -1,4 +1,5 @@
 <app-page-shell (messageEvent)="rightButtonPressed ()" [title]="'Filters'" icon="filter" rButton="plus">
+    <app-progress-bar *ngIf="loadingFlg"></app-progress-bar>
 
     <table class="drTable">
         <tr *ngFor="let filter of filterList; let i = index" (mouseover)="filter.hover=true" (click)="filterPopup.show(filter)"

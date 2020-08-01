@@ -3,8 +3,9 @@
         <table width="100%">
             <tr>
                 <td align="center" *ngFor="let button of buttons">
-                    <app-button [routerLink]="button.routerLink" [icon]="button.icon" [class]="'icon'" title="{{button.name}}"></app-button>
-                    <div style="font-size: 12px; color: white;">{{button.name}}</div>               
+                    <app-button [routerLink]="button.routerLink" [icon]="button.icon" [class]="'icon'"
+                        title="{{button.name}}"></app-button>
+                    <div style="font-size: 12px; color: white;">{{button.name}}</div>
                 </td>
             </tr>
         </table>
@@ -12,8 +13,7 @@
 
     <div style="text-align: center; padding: 10px; background-color: #ccc;">
         <div class="btn-group" style="width: 100%; white-space: nowrap; overflow: hidden;">
-            <button *ngFor="let filter of filters; let i = index" type="button"
-                (click)="changeFilter(filter, i)"
+            <button *ngFor="let filter of filters; let i = index" type="button" (click)="changeFilter(filter, i)"
                 class="btn-default roundButton segmentButton" [ngStyle]="ngStyleSegment(buttonIdx,i)">
                 <i *ngIf="filter.name=='none'" class="fa fa-ban"></i>
                 <div *ngIf="filter.name != 'none'">{{filter.name}}</div>
@@ -21,8 +21,11 @@
         </div>
     </div>
 
-    <app-game-type-bar *ngIf="buttonIdx==0" [selectedGameType]="selectedGameType" (messageEvent)="gameTypeChanged($event)"></app-game-type-bar>
-    <app-year-bar *ngIf="buttonIdx==0" [selectedYear]="selectedYear" (messageEvent)="yearChanged($event)"></app-year-bar>
+    <app-game-type-bar *ngIf="buttonIdx==0" [selectedGameType]="selectedGameType"
+        (messageEvent)="gameTypeChanged($event)"></app-game-type-bar>
+    <app-year-bar *ngIf="buttonIdx==0" [selectedYear]="selectedYear" (messageEvent)="yearChanged($event)">
+    </app-year-bar>
+    <app-progress-bar *ngIf="loadingFlg"></app-progress-bar>
     <app-summary-bar [summaryObj]="summaryObj"></app-summary-bar>
     <canvas (click)="drawGraph(true)" id="myCanvas"></canvas>
 
@@ -32,5 +35,5 @@
             <td style="text-align: left; font-weight: 500;">&nbsp;{{item.value}}</td>
         </tr>
     </table>
-    
+
 </app-page-shell>

@@ -13,7 +13,7 @@
                     </a>
                 </td>
                 <td align="center" class="mainCell">
-                    <div style="font-size: 10px;">{{appVersion}} X2</div>
+                    <div style="font-size: 10px;">{{appVersion}}</div>
                     <app-button [name]="'New Game'" [routerLink]="['/start-game']" [butStyle]="2" [class]="'main-button'" [icon]="'plus'"></app-button>
                     <div style="font-size: 10px;" *ngIf="colorThemeName != 'Default Theme'">{{colorThemeName}}</div>
                 </td>
@@ -60,6 +60,7 @@
         <canvas (click)="drawGraph(true)" id="myCanvas"></canvas>
     </div>
 
+    <app-progress-bar *ngIf="loadingFlg"></app-progress-bar>
     <canvas *ngIf="0" style="position: fixed; top: 370px; bottom: 15px; width: 100%;" (click)="drawGraph(true)" id="myCanvasXX"></canvas>
     
     <div *ngIf="0"

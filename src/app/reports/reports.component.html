@@ -4,6 +4,7 @@
     </app-game-type-bar>
     <app-year-bar [selectedYear]="selectedYear" (messageEvent)="yearChanged($event)"></app-year-bar>
 
+    <app-progress-bar *ngIf="loadingFlg"></app-progress-bar>
 
     <div *ngFor="let report of reportItems">
         <div *ngIf="report.items.length>0">

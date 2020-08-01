@@ -22,12 +22,19 @@ export class PieChartsComponent extends BaseComponent implements OnInit {
   constructor() { super(); }
 
   ngOnInit(): void {
+    this.loadingFlg = true;
+    setTimeout(() => {
+      this.loadData();
+    }, 10);
+
+  }
+  loadData() {
     var obj = this.getDateObjFromJSDate();
     this.selectedYear = obj.year;
     this.allGames = this.loadGames();
     this.filterGames(true);
+    this.loadingFlg = false;
   }
-
 
   changeButton(num: number) {
     this.buttonIdx = num;

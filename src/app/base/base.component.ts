@@ -45,6 +45,7 @@ export class BaseComponent implements OnInit {
   public params: any;
   public currentYear = nowYear();
   public userObj: any;
+  public loadingFlg = true;
 
   constructor() { }
 
@@ -52,10 +53,11 @@ export class BaseComponent implements OnInit {
   }
 
   getVersion() {
+    var version = '2.0.5';
     if (this.isAndroidVersion())
-      return 'Android 2.0.2';
+      return 'Android '+version;
     else
-      return 'Web2.0.2';
+      return 'Web'+version;
   }
   isAndroidVersion() {
     return false;

@@ -13,10 +13,17 @@ export class BarChartsComponent extends BaseComponent implements OnInit {
   constructor() { super(); }
 
   ngOnInit(): void {
+    this.loadingFlg = true;
+    setTimeout(() => {
+      this.loadData();
+    }, 10);
+  }
+  loadData() {
     this.allGames = this.loadGames();
     var obj = this.getDateObjFromJSDate();
     this.selectedYear = obj.year;
     this.filterGames(true);
+    this.loadingFlg = false;
   }
   postFilterGames() {
     var profitType = 0;

@@ -16,7 +16,14 @@ export class FiltersComponent extends BaseComponent implements OnInit {
   constructor(private _pokerService: PokerService) { super(); }
 
   ngOnInit(): void {
+    this.loadingFlg = true;
+    setTimeout(() => {
+      this.loadData();
+    }, 10);
+  }
+  loadData() {
     this.refreshFilters('');
+    this.loadingFlg = false;
   }
   rightButtonPressed() {
     this.filterPopupComponent.show(null);

@@ -15,14 +15,20 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
   constructor() { super(); }
 
   ngOnInit(): void {
+    this.loadingFlg = true;
+    setTimeout(() => {
+      this.loadData();
+    }, 10);
+  }
+  loadData() {
     this.allGames = this.loadGames();
     var numGames = localStorage.numGames || 0;
     if (this.allGames.length > numGames)
       this.findMinYear(this.allGames);
     this.filterGames();
     this.drawGraph();
+    this.loadingFlg = false;
   }
-
   findMinYear(games) {
     localStorage.numGames = games.length;
     var minYear = localStorage.minYear || 9999;

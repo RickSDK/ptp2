@@ -8,14 +8,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./games.component.scss']
 })
 export class GamesComponent extends BaseComponent implements OnInit {
-
   constructor(private router: Router) { super(); }
 
   ngOnInit(): void {
+    this.loadingFlg = true;
+    setTimeout(() => {
+      this.loadData();
+    }, 10);
+  }
+  loadData() {
     this.allGames = this.loadGames();
-    console.log(this.allGames);
-
     this.filterGames(true);
+    this.loadingFlg = false;
   }
   gotoGameClicked(game: any) {
     if (game.status == 'In Progress')

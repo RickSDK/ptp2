@@ -26,6 +26,14 @@ export class StatsComponent extends BaseComponent implements OnInit {
   constructor() { super(); }
 
   ngOnInit(): void {
+    this.loadingFlg = true;
+    setTimeout(() => {
+      this.loadData();
+    }, 10);
+
+
+  }
+  loadData() {
     this.allGames = this.loadGames();
     this.filterGames();
     this.drawGraph();
@@ -57,6 +65,7 @@ export class StatsComponent extends BaseComponent implements OnInit {
       }
     });
     this.filters = filters;
+    this.loadingFlg = false;
   }
   changeFilter(filter: any, i: number) {
     this.buttonIdx = i;

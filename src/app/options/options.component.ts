@@ -18,6 +18,7 @@ declare var packageBigHands: any;
 declare var packagePlayers: any;
 declare var packageFilters: any;
 declare var packageGamess: any;
+declare var saveGames: any;
 
 @Component({
   selector: 'app-options',
@@ -32,6 +33,8 @@ export class OptionsComponent extends BaseHttpComponent implements OnInit {
   public title = 'Options';
   public lastExportCount: string = localStorage.lastExportCount || 'never';
   public lastImportText: string = localStorage.lastImportText || 'never';
+  public globalGameHash: any;
+  public globalNextGameId: number = 1;
 
   public options = [
     { id: 1, icon: 'fa-upload', name: 'Export', hover: false },
@@ -46,9 +49,16 @@ export class OptionsComponent extends BaseHttpComponent implements OnInit {
   constructor(private router: Router) { super(); }
 
   ngOnInit(): void {
+    this.loadingFlg = true;
+    setTimeout(() => {
+      this.loadData();
+    }, 10);
+  }
+  loadData() {
     this.allGames = this.loadGames();
     this.userObj = this.getUserObj();
     console.log(this.userObj);
+    this.loadingFlg = false;
   }
   buttonClicked(option) {
     this.selectedOption = option.id;
@@ -100,6 +110,7 @@ export class OptionsComponent extends BaseHttpComponent implements OnInit {
     if (this.selectedOption == 2) {
       this.startSpinner();
       this.importObject = this.getinitializedImportObject();
+      this.populateGameHash();
       this.executeApi('ImportData.php');
     }
     if (this.selectedOption == 6) {
@@ -110,13 +121,25 @@ export class OptionsComponent extends BaseHttpComponent implements OnInit {
       this.infoPopupComponent.show('All data has been deleted.');
     }
   }
+  populateGameHash() {
+    this.globalGameHash = {};
+    var game_id = 1;
+    this.allGames.forEach(game => {
+      this.globalGameHash[game.startTime] = true;
+      if (game.id >= game_id)
+        game_id = game.id + 1;
+    });
+    this.globalNextGameId = game_id;
+    //   console.log(this.globalGameHash);
+    //   console.log(this.globalNextGameId, this.allGames);
+  }
   postSuccessApi(filename: string, data: string) {
     if (filename == "ImportData.php") {
       this.processImportData(data);
     }
     if (filename == "ImportData2.php") {
       this.inportData2(data);
-      localStorage.lastImportText = this.allGames.length+ ' games';
+      localStorage.lastImportText = this.allGames.length + ' games';
       this.lastImportText = this.allGames.length + ' games';
     }
     if (filename == "ExportData.php") {
@@ -124,7 +147,7 @@ export class OptionsComponent extends BaseHttpComponent implements OnInit {
     }
     if (filename == "ExportData2.php") {
       console.log('ExportData2 done!!');
-      localStorage.lastExportCount = this.allGames.length+ ' games';
+      localStorage.lastExportCount = this.allGames.length + ' games';
       this.lastExportCount = this.allGames.length + ' games';
       this.setApiMessage('Success');
     }
@@ -176,11 +199,11 @@ export class OptionsComponent extends BaseHttpComponent implements OnInit {
       code: localStorage.code,
       data: data,
       numGames: totalLength,
-			blockNum: batchNum
+      blockNum: batchNum
     }
-    this.setLoadingMessage('Uploading game batch '+batchNum);
+    this.setLoadingMessage('Uploading game batch ' + batchNum);
     this.executeApi('ExportData2.php', params);
-//    console.log(data);
+    //    console.log(data);
   }
   processImportData(data: string) {
     var lines = data.split("<br>");
@@ -199,7 +222,6 @@ export class OptionsComponent extends BaseHttpComponent implements OnInit {
         handId = record.id + 1;
     });
     var newHandFlg = false;
-    console.log('x', bigHandHash);
 
     //-----player-------------------
     var playersList = this.loadDataFromLocalDb('playersList');
@@ -234,6 +256,8 @@ export class OptionsComponent extends BaseHttpComponent implements OnInit {
         console.log('importing: ', type);
       }
       if (type == '-----GAME-----') {
+        var game = gameFromLine(line);
+        console.log('game to import!', game);
         importObject.gamesOnServer++;
         importObject.gamesImported += saveThisGame(gameFromLine(line));
       }
@@ -283,7 +307,7 @@ export class OptionsComponent extends BaseHttpComponent implements OnInit {
       }
     });
     this.addImportObjectValues(importObject);
-    console.log('xxx', this.importObject);
+    console.log('importObject', this.importObject);
 
     if (newHandFlg)
       this.saveDataToLocalDb('handList', handList);
@@ -294,24 +318,45 @@ export class OptionsComponent extends BaseHttpComponent implements OnInit {
     if (newFilterFlg)
       this.saveDataToLocalDb('filterList', filterList);
 
-    this.importData();
+    this.importData(); // fix this!!!
   }
   inportData2(data: string) {
+    //console.log('inportData2', data);
     var lines = data.split("<br>");
     var type = '';
     var importObject = this.getinitializedImportObject();
-
+    var globalGameHash = this.globalGameHash;
+    var globalNextGameId = this.globalNextGameId;
+    var gamesList = this.allGames;
     lines.forEach(function (line) {
       if (line.substring(0, 5) == '-----') {
         type = line;
       }
       if (type == '-----GAME-----') {
-        importObject.gamesOnServer++;
-        importObject.gamesImported += saveThisGame(gameFromLine(line));
+        var game = gameFromLine(line);
+        if (game.startTime)
+          importObject.gamesOnServer++;
+        if (globalGameHash[game.startTime]) {
+          console.log('dupe!');
+        } else {
+          globalGameHash[game.startTime] = true;
+          game.id = globalNextGameId;
+          importObject.gamesImported++;
+          globalNextGameId++;
+          gamesList.push(game);
+          //game = compressedGameFromGame(game);
+          //saveThisGame();
+        }
       }
     });
+    this.allGames = gamesList;
+    console.log(gamesList);
+    this.globalGameHash = globalGameHash;
+    this.globalNextGameId = globalNextGameId;
 
     this.addImportObjectValues(importObject);
+    if (this.importObject.gamesOnServer > this.allGames.length)
+      this.importObject.gamesOnServer = this.allGames.length;
     console.log('importObject', this.importObject);
 
     if (lines.length > 10 && this.blockNum < 10) {
@@ -328,8 +373,11 @@ export class OptionsComponent extends BaseHttpComponent implements OnInit {
       this.setApiMessage(error);
   }
   showSuccessMessage() {
-    if (this.importObject)
+
+    if (this.importObject) {
+      saveGames(this.allGames);
       this.setApiMessage('Import Complete. Games on Server: ' + this.importObject.gamesOnServer + ', Games Loaded: ' + this.importObject.gamesImported);
+    }
   }
   importData() {
     this.blockNum++;

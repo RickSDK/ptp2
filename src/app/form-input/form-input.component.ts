@@ -5,6 +5,8 @@ const urlRegEx = new RegExp('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*
 const phoneNumRegEx = new RegExp('\([0-9]{3}\)\ [0-9]{3}\-[0-9]{4}\ ext\.\ [0-9_]{4}$');
 const emailRegex = new RegExp('^[a-zA-Z0-9._+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$');
 
+declare var htmlDateStringWhileTyping: any;
+
 @Component({
   selector: 'app-form-input',
   templateUrl: './form-input.component.html',
@@ -18,7 +20,7 @@ export class FormInputComponent extends BaseComponent implements OnChanges {
   public validateVal: boolean = false;
   constructor() { super(); }
 
-  ngOnChanges(changes:any): void {
+  ngOnChanges(changes: any): void {
     if (this.inputFieldObj.type == 'boolean') {
       setTimeout(() => {
         this.setValue(this.inputFieldObj.value);
@@ -62,6 +64,10 @@ export class FormInputComponent extends BaseComponent implements OnChanges {
     this.inputFieldObj.answer = field.value;
     this.inputFieldObj.warningFlg = (this.inputFieldObj.requiredFlg && field.value.length == 0);
     this.inputFieldObj.errorMessage = (field.value.length == 0 || this.validateVal) ? '' : 'Invalid format';
+
+    if (this.inputFieldObj.type == 'date') {
+      this.inputFieldObj.value = htmlDateStringWhileTyping(field.value);
+    }
     this.messageEvent.emit(this.inputFieldObj);
   }
   selectOption(name: string) {

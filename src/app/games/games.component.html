@@ -5,7 +5,7 @@
     <app-summary-bar [summaryObj]="summaryObj"></app-summary-bar>
 
 
-
+    <app-progress-bar *ngIf="loadingFlg"></app-progress-bar>
     <table class="drTable">
         <tr *ngFor="let game of filteredGames; let i = index" (click)="gotoGameClicked(game)" (mouseover)="game.hover=true"
             (mouseout)="game.hover=false" [style.background-color]="game.hover?lightColor:(i%2==0)?'#ddd':'white'"

@@ -69,7 +69,7 @@ function getUserObj() {
     state: localStorage.state,
     country: localStorage.country,
     xFlg: localStorage.xFlg,
-    gamesOnServer: parseInt(localStorage.gamesOnServer),
+    gamesOnServer: parseInt(localStorage.gamesOnServer || '0'),
     userId: parseInt(localStorage.userId),
     email: localStorage.email
   }

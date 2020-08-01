@@ -1,1 +1,11 @@
-<p>date-input works!</p>
+<div class="inputFieldBox">
+    <div><i class="fa fa-calendar"></i> {{inputFieldObj.name}}:
+        <span *ngIf="inputFieldObj.requiredFlg" style="color: red;">*</span></div>
+    <input [disabled]="disabledFlg" (input)="changesMadeDate($event.target.value)" id="{{inputFieldObj.id}}" type="date"
+        [value]="inputFieldObj.dateField" [attr.min]="minDate" maxlength="10" placeholder="YYYY-MM-DD">
+    <input [disabled]="disabledFlg" (input)="changesMade()" id="{{inputFieldObj.id}}TimeField" type="time"
+        value="{{inputFieldObj.timeField}}" placeholder="23:59">
+    <div *ngIf="inputFieldObj.warningFlg" style="background-color: yellow; color: red;">This field is required!</div>
+    <div *ngIf="inputFieldObj.errorMessage" style="background-color: yellow; color: red;">{{inputFieldObj.errorMessage}}
+    </div>
+</div>

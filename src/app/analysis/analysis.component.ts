@@ -10,14 +10,21 @@ declare var generateAllAnalysis: any;
   styleUrls: ['./analysis.component.scss']
 })
 export class AnalysisComponent extends BaseComponent implements OnInit {
-  public analysisText = 'Analysis';
+  public analysisText = ['Analysis Loading...'];
 
   constructor() { super(); }
 
   ngOnInit(): void {
+    this.items = [];
+    this.loadingFlg = true;
+    setTimeout(() => {
+      this.loadData();
+    }, 10);
+  }
+  loadData() {
     this.allGames = this.loadGames();
-
     this.filterGames();
+    this.loadingFlg = false;
   }
   postFilterGames() {
     this.items = [];
@@ -31,15 +38,12 @@ export class AnalysisComponent extends BaseComponent implements OnInit {
 
     var obj = this.getDateObjFromJSDate();
     var analysisObj = generateAllAnalysis(this.allGames, obj);
-    console.log('analysisObj', analysisObj);
 
     var gameType = 0;
     if (this.selectedGameType == 'Cash')
       gameType = 1;
     if (this.selectedGameType == 'Tournament')
       gameType = 2;
-
-    console.log('this.summaryObj', this.summaryObj)
 
     this.analysisText = analysisTextForPlayer(this.summaryObj, 'Poker Track Pro', this.selectedYear, gameType, analysisObj.allStatsObj, analysisObj.thisYearObj, analysisObj.thisMonthObj, analysisObj.lastMonthObj, analysisObj.lastYearObj);
   }

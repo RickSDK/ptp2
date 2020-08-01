@@ -2,6 +2,7 @@
     <app-game-type-bar (messageEvent)="gameTypeChanged($event)"></app-game-type-bar>
     <app-year-bar (messageEvent)="yearChanged($event)"></app-year-bar>
     <app-summary-bar [summaryObj]="summaryObj"></app-summary-bar>
+    <app-progress-bar *ngIf="loadingFlg"></app-progress-bar>
 
     <table class="drTable">
         <tr *ngFor="let item of items">
