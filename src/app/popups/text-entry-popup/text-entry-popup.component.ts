@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 
 declare var $: any;
+declare var formatTextForDatabase: any;
 
 @Component({
   selector: 'app-text-entry-popup',
@@ -9,12 +10,22 @@ declare var $: any;
   styleUrls: ['./text-entry-popup.component.scss']
 })
 export class TextEntryPopupComponent extends BaseComponent implements OnInit {
+  @Output() messageEvent = new EventEmitter<string>();
+
+  public formFields = [{ name: 'Comments', type: 'textarea', value: '', requiredFlg: true, max: 500 }];
 
   constructor() { super(); }
 
   ngOnInit(): void {
   }
-  show(message: string) {
+  show(notes: string) {
+    this.formFields[0].value = notes;
     $('#textEntryPopup').modal();
   }
+  submitButtonClicked(msg: string) {
+    this.messageEvent.emit(this.formFields[0].value);
+    this.closeModal('#textEntryPopup');
+  }
+
 }
+

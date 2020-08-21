@@ -1,8 +1,11 @@
 function drawGraph(records, type, graphColor, id = "myCanvas") {
 	//format {startTime: this.game.startTime, profit: 0}
-	records.sort((curr, next) => {
-		return curr.startTime < next.startTime ? -1 : 1;
-	});
+	if(records) {
+		records.sort((curr, next) => {
+			return curr.startTime < next.startTime ? -1 : 1;
+		});
+	}
+
 
 	var c = document.getElementById(id);
 	if (c) {
@@ -623,10 +626,23 @@ function drawGames(c, hi, low, leftEdge, rightEdge, height, games, type, friendN
 
 	if (numGames > 1) {
 		spacer = (rightEdge - leftEdge) / (numGames - 1);
-		if (type == 2) {
-			date1 = convertStringToDate(games[0].startTime);
-			var date2 = convertStringToDate(games[numGames - 1].startTime);
+		if (type == 0) {
+			var d1 = games[0].startTime;
+			var d2 = games[numGames - 1].startTime;
+			date1 = new Date(d1);
+			var date2 = new Date(d2);
+		
 			totalSpan = (date2.getTime() - date1.getTime());
+			if(0) {
+				console.log('g1', games[0])
+				console.log('g2', games[numGames - 1])
+				console.log('d1', d1)
+				console.log('d2', d2)
+				console.log('date1', date1)
+				console.log('date2', date2)
+				console.log('totalSpan', totalSpan)
+
+			}
 		}
 	}
 	if (spanDate1 && spanDate2) {
@@ -636,10 +652,9 @@ function drawGames(c, hi, low, leftEdge, rightEdge, height, games, type, friendN
 	}
 	if (totalSpan == 0) {
 		if (games.length == 1)
-			date1 = new Date(games[0].startDate);
+			date1 = new Date(games[0].startTime);
 		totalSpan = 100;
 	}
-
 
 	var zeroLine = getYVal(hi, low, height, 0);
 	var yVal = zeroLine;
@@ -663,8 +678,9 @@ function drawGames(c, hi, low, leftEdge, rightEdge, height, games, type, friendN
 		if (game.gameId && game.gameId > 0)
 			profit = game.profit;
 		yVal = getYVal(hi, low, height, profit);
-		if (type == 2)
+		if (type == 0)
 			xVal = getXValForGame(game, date1, leftEdge, totalWidth, totalSpan);
+
 		if (xVal < 50)
 			xVal = 50;
 		if (games.length == 1)
@@ -698,7 +714,7 @@ function drawGames(c, hi, low, leftEdge, rightEdge, height, games, type, friendN
 		if (game.gameId && game.gameId > 0)
 			profit = game.profit;
 		yVal = getYVal(hi, low, height, profit);
-		if (type == 2)
+		if (type == 0)
 			xVal = getXValForGame(game, date1, leftEdge, totalWidth, totalSpan);
 
 		drawPtpCircle(c, xVal, yVal, size, (gameProfit >= 0) ? 'green' : 'red');
@@ -710,7 +726,7 @@ function drawGames(c, hi, low, leftEdge, rightEdge, height, games, type, friendN
 }
 
 function getXValForGame(game, date1, leftEdge, totalWidth, totalSpan) {
-	var date2 = convertStringToDate(game.startTime);
+	var date2 = new Date(game.startTime);
 	var thisSpan = (date2.getTime() - date1.getTime());
 	if (thisSpan < 0)
 		thisSpan = totalSpan;

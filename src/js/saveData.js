@@ -63,6 +63,8 @@ function saveThisGame(newGame, addProfitRecordFlg = false) {
     return 0;
   }
   if (!newGame.id) {
+    console.log('error!!! no game id!!!');
+
     var newId = 1;
     games.forEach(game => {
       if (game.id >= newId)
@@ -78,7 +80,7 @@ function saveThisGame(newGame, addProfitRecordFlg = false) {
   var newGames = [];
   var newGameCount = 1;
   games.forEach(game => {
-    if (game.startTime == newGame.startTime)
+    if (game.id == newGame.id)
       newGameCount = 0;
     else
       newGames.push(game);

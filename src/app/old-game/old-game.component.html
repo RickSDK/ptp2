@@ -1,6 +1,8 @@
 <app-page-shell [title]="title" [rButton]="'home'">
 
-    <div [ngStyle]="ngStyleGrayColor()" class="box">
+    <app-progress-bar *ngIf="loadingFlg"></app-progress-bar>
+    <div *ngIf="game" [ngStyle]="ngStyleGrayColor()" class="box">
+        <span style="background-color: #aaa; float: right;">id: {{gameId}}</span>
         <div style="text-align: center; padding: 5px;">
             <div class="btn-group">
                 <button [disabled]="formDisabledFlg" (click)="changeGameType(0)" type="button"
@@ -151,10 +153,13 @@
             <div><i class="fa fa-file-text-o"></i> Notes: <input type="text" id="notes" value="{{game.notes}}"
                     (input)="doInput($event.target.value)" (change)="changesMadeFlg=true" (keyup)="changesMadeFlg=true">
             </div>
-            <div>Game Duration: <span [ngStyle]="ngStylehighlightedValue()">{{gameMinutes}}</span> Min</div>
-            <div>Profit: {{profitObj.currency}} </div>
-            <app-local-currency value="profitObj.value"></app-local-currency>
-            <div *ngIf="gameMinutes>0">Hourly: {{hourlyObj.currency}} /hr</div>
+            <div *ngIf="profitObj">
+                <div>Game Duration: <span [ngStyle]="ngStylehighlightedValue()">{{gameMinutes}}</span> Min</div>
+                <div>Profit: {{profitObj.currency}} </div>
+                <app-local-currency value="profitObj.value"></app-local-currency>
+                <div *ngIf="gameMinutes>0">Hourly: {{hourlyObj.currency}} /hr</div>
+            </div>
+
             <hr>
 
             <div>

@@ -1,1 +1,9 @@
-<p>form-wrapper works!</p>
+<div class="blackBox">
+    <app-form-input *ngFor="let obj of formFields; let i = index;" [inputFieldObj]="obj" [id]="'field'+i"
+        (messageEvent)="changesMade($event)"></app-form-input>
+    <div style="text-align: center;">
+        <app-loading-bar (click)="loadingFlg=false" *ngIf="loadingFlg" [errorMessage]="errorMessage"></app-loading-bar>
+        <app-button *ngIf="!loadingFlg" [disabled]="!changesMadeFlg" (click)="verifyForm()" [name]="'Submit'"
+            class="large"></app-button>
+    </div>
+</div>

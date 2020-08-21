@@ -20,6 +20,7 @@
                 </td>
             </tr>
         </table>
+        <app-progress-bar *ngIf="loadingFlg"></app-progress-bar>
         <canvas [ngStyle]="ngStyleButton(3)" id="myCanvas" style="max-height: 250px;"></canvas>
         <table class="drTable">
             <tr *ngFor="let item of items">

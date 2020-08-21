@@ -62,22 +62,31 @@ export class OldGameComponent extends BaseHttpComponent implements OnInit {
     super();
     this.route.queryParams
       .subscribe(params => {
+        this.loadingFlg = true;
         this.gameId = params.id;
         this.liveFlg = params.liveFlg == 'yes';
-        if (this.gameId > 0) {
-          this.title = 'Edit Game';
-          this.game = this.getGameOfId(this.gameId);
-          this.populateFormForGame();
-        } else {
-          this.title = (this.liveFlg) ? 'New Game' : 'Old Game';
-          this.game = this.createNewGame();
-          this.game.status = 'Completed';
-          this.initializeForm();
-        }
+        this.title = (this.liveFlg) ? 'New Game' : 'Old Game';
+        setTimeout(() => {
+          this.loadData();
+        }, 500);
       });
   }
   ngOnInit(): void {
 
+  }
+  loadData() {
+    if (this.gameId > 0) {
+      this.title = 'Edit Game';
+      this.game = this.getGameOfId(this.gameId);
+      this.populateFormForGame();
+      this.loadingFlg = false;
+    } else {
+      this.game = this.createNewGame();
+      this.gameId = this.game.id;
+      this.game.status = 'Completed';
+      this.initializeForm();
+      this.loadingFlg = false;
+    }
   }
   initializeForm() {
     this.allGames = this.loadGames();
@@ -119,10 +128,10 @@ export class OldGameComponent extends BaseHttpComponent implements OnInit {
   changeGameType(num: number) {
     this.changesMadeFlg = true;
     this.buttonIdx = num;
-    if(this.buyinObj.amount==0) {
+    if (this.buyinObj.amount == 0) {
       var buyin = this._pokerService.getTopDataType(num + 6, this.allGames);
       this.buyinObj = currencyObj(numberVal(buyin));
-      this.profitObj = currencyObj(buyin * -1);  
+      this.profitObj = currencyObj(buyin * -1);
     }
   }
   timeChanged() {
@@ -173,7 +182,10 @@ export class OldGameComponent extends BaseHttpComponent implements OnInit {
   startLiveGame() {
     this.populateMainValues();
     this.game.status = 'In Progress';
-    this.game.cashout = this.game.buyin;
+    if (this.game.type == 'Cash')
+      this.game.cashout = this.game.buyin;
+    else
+      this.game.cashout = 0;
     this.game.startTime = oracleDateStampFromDate();
     this.game.endTime = oracleDateStampFromDate()
     console.log(this.game);
@@ -194,8 +206,14 @@ export class OldGameComponent extends BaseHttpComponent implements OnInit {
     this.game.notes = getTextFieldValue('notes');
 
     console.log(this.game);
-    this.saveThisGame(this.game);
-    this.infoPopupComponent.show('Success!');
+    if (this.gameId == this.game.id) {
+      this.saveThisGame(this.game);
+      this.infoPopupComponent.show('Success!');
+    } else {
+      console.log('error!')
+      this.infoPopupComponent.show('error, no id!');
+    }
+
 
   }
   deleteGame() {

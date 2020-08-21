@@ -9,8 +9,7 @@
            </div>
             <div class="modal-body" style="text-align: center; font-size: 24px;">
 
- 
- 
+                <app-form-wrapper [formFields]="formFields" (messageEvent)="submitButtonClicked($event)"></app-form-wrapper>
 
             </div>
             <div class="modal-footer">

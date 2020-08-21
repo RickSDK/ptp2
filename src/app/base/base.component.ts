@@ -53,11 +53,11 @@ export class BaseComponent implements OnInit {
   }
 
   getVersion() {
-    var version = '2.0.7';
+    var version = '2.0.11';
     if (this.isAndroidVersion())
-      return 'Android '+version;
+      return 'Android ' + version;
     else
-      return 'Web'+version;
+      return 'Web' + version;
   }
   isAndroidVersion() {
     return false;
@@ -285,8 +285,12 @@ export class BaseComponent implements OnInit {
       items.push({ name: 'Rebuys', value: game.rebuys })
       items.push({ name: 'Rebuy Amount', value: formatNumberToLocalCurrency(game.rebuyAmount) })
     }
-    if (game.status == 'In Progress')
-      items.push({ name: 'Chipstack', value: formatNumberToLocalCurrency(game.cashout) })
+    if (game.status == 'In Progress') {
+      if (game.type=='Cash')
+        items.push({ name: 'Chipstack', value: formatNumberToLocalCurrency(game.cashout) });
+      else
+        items.push({ name: 'Winnings', value: formatNumberToLocalCurrency(game.cashout) });
+    }
     else {
       items.push({ name: 'Cashout', value: formatNumberToLocalCurrency(game.cashout) })
       items.push({ name: 'Hours', value: game.hours })

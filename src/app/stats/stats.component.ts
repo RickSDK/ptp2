@@ -26,6 +26,7 @@ export class StatsComponent extends BaseComponent implements OnInit {
   constructor() { super(); }
 
   ngOnInit(): void {
+    this.selectedYear = localStorage.selectedYear || 'Last 10';
     this.loadingFlg = true;
     setTimeout(() => {
       this.loadData();

@@ -1,4 +1,5 @@
 declare var scrubGameAndCalculateProfit: any;
+declare var formatTextFromrDatabase: any;
 
 export class Game {
     public bankroll: string;
@@ -51,6 +52,8 @@ export class Game {
     public totalMinutes: number;
     public weekday: string;
     public year: number;
+    public pauseFlg: boolean;
+    public pauseTime: string;
 
     constructor(obj: any, id:number) {
         this.bankroll = obj.bankroll;
@@ -63,7 +66,7 @@ export class Game {
         this.id = obj.id || id;
         this.limit = obj.limit;
         this.location = obj.location;
-        this.notes = obj.notes;
+        this.notes = formatTextFromrDatabase(obj.notes);
         this.rebuyAmount = obj.rebuyAmount;
         this.rebuys = obj.rebuys;
         this.stakes = obj.stakes;
@@ -75,6 +78,8 @@ export class Game {
         this.tournamentSpots = obj.tournamentSpots;
         this.tournamentType = obj.tournamentType;
         this.type = obj.type;
+        this.pauseFlg = obj.pauseFlg;
+        this.pauseTime = obj.pauseTime;
 
         scrubGameAndCalculateProfit(obj);
 

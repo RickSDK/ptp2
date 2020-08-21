@@ -1,4 +1,4 @@
-<app-page-shell title="Live Game" (messageEvent)="infoButtonClicked($event)" rButton="gameInfo">
+<app-page-shell title="Live Game" (messageEvent)="infoButtonClicked($event)" lButton="home" rButton="gameInfo">
     <div style="background-color: #444;" class="redBox">
         <table width="100%">
             <tr>
@@ -6,12 +6,21 @@
                     <div style="font-size: 10px;">Profit</div>
                     <app-local-currency [amount]="game.profit" [lightFlg]="true"></app-local-currency>
                     <div style="font-size: 10px;">{{game.skillName}}</div>
-                    
+
                 </td>
                 <td>
-                    <div style="font-size: 10px; margin-bottom: -10px; margin-top: 4px;"><i class="fa fa-clock-o"></i> Game Clock</div>
+                    <div *ngIf="!game.pauseFlg">
+
+                    <div style="font-size: 10px; margin-bottom: -10px; margin-top: 4px;"><i class="fa fa-clock-o"></i>
+                        Game Clock</div>
                     <span id="ptpClock" [ngStyle]="ngStyleLightColor()"
                         style="font-size: 48px; font-weight: 500;">{{timer}}</span>
+                    </div>
+ 
+                    <div *ngIf="game.pauseFlg">
+                        <div>Game is Paused</div>
+                        <app-button (click)="unpauseGame()" [name]="'Play'" [icon]="'play'"></app-button>
+                    </div>
 
                 </td>
                 <td width="60">
@@ -24,7 +33,8 @@
         <table width="100%">
             <tr>
                 <td align="center" *ngFor="let button of buttons">
-                    <app-button (click)="buttonPressed(button)" [icon]="button.icon" class="icon" [label]="button.name"></app-button>
+                    <app-button (click)="buttonPressed(button)" [icon]="button.icon" class="icon" [label]="button.name">
+                    </app-button>
                 </td>
             </tr>
         </table>
@@ -45,27 +55,34 @@
         <table width="100%">
             <tr>
                 <td align="center" width="25%" *ngIf="game.type=='Cash'">
-                    <app-button (click)="buttonNumberClicked('Food/Drink', 2, game.food, true)" icon="cutlery" class="width90" label="Food/Drink" [name]="foodObj.currency"></app-button>
+                    <app-button (click)="buttonNumberClicked('Food/Drink', 2, game.food, true)" icon="cutlery"
+                        class="width90" label="Food/Drink" [name]="foodObj.currency"></app-button>
                 </td>
                 <td align="center" width="25%">
-                    <app-button (click)="buttonNumberClicked('Tips/Tokes', 3, game.tips, true)" icon="money" class="width90" label="Tips" [name]="tipsObj.currency"></app-button>
+                    <app-button (click)="buttonNumberClicked('Tips/Tokes', 3, game.tips, true)" icon="money"
+                        class="width90" label="Tips" [name]="tipsObj.currency"></app-button>
                 </td>
                 <td align="center" width="25%">
-                    <app-button (click)="pausePopup.show()" icon="pause" class="icon" label="Pause"></app-button>
+                    <app-button (click)="pauseButtonClicked()" icon="pause" class="icon" label="Pause"></app-button>
                 </td>
                 <td align="center" width="25%">
-                    <app-button (click)="rebuyPopup.show()" icon="refresh" class="icon" label="Re-Buy"></app-button>
+                    <app-button (click)="buttonNumberClicked('Rebuy Amount', 4, game.buyin, true)" icon="refresh" class="icon" label="Re-Buy"></app-button>
                 </td>
             </tr>
         </table>
         <table width="100%">
             <tr>
-                <td align="center" width="50%" *ngIf="game.type=='Cash'">
-                    <app-button (click)="buttonNumberClicked('Current Chips', 1, game.cashout, true)" class="large"
+                <td align="center" width="50%">
+                    <app-button *ngIf="game.type=='Cash'"
+                        (click)="buttonNumberClicked('Current Chips', 1, game.cashout, true)" class="large"
                         [name]="cashoutObj.currency" label="Current Chips"></app-button>
+                    <app-button *ngIf="game.type!='Cash'"
+                        (click)="buttonNumberClicked('Current Chips', 1, game.cashout, true)" class="large"
+                        [name]="cashoutObj.currency" label="Winning Amount"></app-button>
                 </td>
                 <td align="center" width="50%">
-                    <app-button (click)="confirmationPopup.show('Cash out for '+cashoutObj.currency+'?')" icon="stop" class="large" name="End" label="Cash Out"></app-button>
+                    <app-button (click)="confirmationPopup.show('Cash out for '+cashoutObj.currency+'?')" icon="stop"
+                        class="large" name="End" label="Cash Out"></app-button>
                 </td>
             </tr>
         </table>
@@ -79,6 +96,6 @@
 <app-number-modal #numberModal (messageEvent)="numberSelected($event)"></app-number-modal>
 <app-ref-data-modal #refDataModal (messageEvent)="refDataSelected($event)"></app-ref-data-modal>
 <app-game-info-popup #gameInfoPopup></app-game-info-popup>
-<app-pause-popup #pausePopup></app-pause-popup>
+<app-pause-popup #pausePopup (messageEvent)="unpauseGame($event)"></app-pause-popup>
 <app-rebuy-popup #rebuyPopup></app-rebuy-popup>
-<app-text-entry-popup #textEntryPopup></app-text-entry-popup>
+<app-text-entry-popup #textEntryPopup (messageEvent)="editComments($event)"></app-text-entry-popup>

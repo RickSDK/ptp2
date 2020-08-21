@@ -11,6 +11,7 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
   @ViewChild(InfoModalComponent) infoModalComponent: InfoModalComponent;
   public appVersion = this.getVersion();
   public colorThemeName = localStorage.colorThemeName || 'Default Theme';
+  public currentGameId = 0;
 
   constructor() { super(); }
 
@@ -27,6 +28,12 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
       this.findMinYear(this.allGames);
     this.filterGames();
     this.drawGraph();
+    var currentGameId = 0;
+    this.allGames.forEach(game => {
+      if (game.status == 'In Progress')
+        currentGameId = game.id;
+    });
+    this.currentGameId = currentGameId;
     this.loadingFlg = false;
   }
   findMinYear(games) {
@@ -40,7 +47,7 @@ export class MainMenuComponent extends BaseComponent implements OnInit {
       localStorage.minYear = year;
     console.log('min year: ', year);
   }
-  infoButtonClicked(str:string) {
+  infoButtonClicked(str: string) {
     this.infoModalComponent.show();
   }
 }

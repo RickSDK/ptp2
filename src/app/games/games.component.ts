@@ -17,6 +17,7 @@ export class GamesComponent extends BaseComponent implements OnInit {
     }, 10);
   }
   loadData() {
+    this.selectedYear = localStorage.selectedYear || 'Last 10';
     this.allGames = this.loadGames();
     this.filterGames(true);
     this.loadingFlg = false;

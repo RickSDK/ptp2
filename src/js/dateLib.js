@@ -67,6 +67,14 @@ function pad(n = 0, width = 2, z = '0') {
     var str = n.toString();
     return str.length >= width ? str : new Array(width - str.length + 1).join(z) + str;
 }
+function clockSinceStartTime(startTime) {
+    var seconds = secondsSinceDateStamp(startTime);
+    var hours = Math.floor(seconds / 3600);
+    seconds -= (hours * 3600);
+    var minutes = Math.floor(seconds / 60);
+    seconds -= (minutes * 60);
+    return hours + ':' + pad(minutes) + ':' + pad(seconds);
+}
 function secondsSinceDateStamp(dateStamp) {
     var date1 = new Date(dateStamp);
     var now = new Date();

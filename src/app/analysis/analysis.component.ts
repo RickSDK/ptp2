@@ -22,6 +22,7 @@ export class AnalysisComponent extends BaseComponent implements OnInit {
     }, 10);
   }
   loadData() {
+    this.selectedYear = 'Last 10';
     this.allGames = this.loadGames();
     this.filterGames();
     this.loadingFlg = false;
